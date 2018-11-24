@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebApplication15.Models.Issued_Books>
+
+@{
+    ViewBag.Title = "IssuedBooks";
+}
+
+<h2>IssuedBooks</h2>
+
+@using (Html.BeginForm("IssuedBooks", "Admin", FormMethod.Get))
+{
+    <p>
+        <h2>Search by:</h2>
+        @Html.RadioButton("searchby", "Number", true)<text>Book Number</text>
+        @Html.RadioButton("searchby", "Email")<text>Email</text><br />
+        @Html.TextBox("search")<input type="submit" value="search" />
+
+    </p>
+
+
+}
+
+
+<p>
+    @Html.ActionLink("ADD BOOK", "AddIssuedbook")
+</p>
+<table class="table"   style="margin-top: 2cm;"   align="center">
+
+     
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Issue_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Return_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Due_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Issue_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Return_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Due_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  }) |
+            @Html.ActionLink("Details", "Details", new {  }) |
+            @Html.ActionLink("Delete", "Delete", new {  })
+        </td>
+    </tr>
+}
+
+</table>
+<br /><br /><br /><br /><br />

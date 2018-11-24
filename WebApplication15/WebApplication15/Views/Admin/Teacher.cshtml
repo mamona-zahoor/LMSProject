@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WebApplication15.Models.tbl_teacher>
+
+@{
+    ViewBag.Title = "Teacher";
+}
+
+
+@using (Html.BeginForm("Teacher", "Admin", FormMethod.Get))
+{
+    <p>
+        <h2>Search by:</h2>
+        @Html.RadioButton("searchby", "Name")<text>Name</text>
+        @Html.RadioButton("searchby", "Designation")<text>Designation</text><br />
+        @Html.TextBox("search")<input type="submit" value="search" />
+
+    </p>
+
+
+}
+   
+
+
+
+ <h2>@Html.ActionLink("Add Teacher", "AddTeacher")</h2>  
+   
+
+<table class="table"  style="margin-top: 2cm;"   align="center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Designation)
+        </th>
+        <th>
+            <!--@Html.DisplayNameFor(model => model.ID)-->
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Designation)
+        </td>
+        <!--@Html.DisplayFor(modelItem => item.ID)-->
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+<br /><br /><br /><br />

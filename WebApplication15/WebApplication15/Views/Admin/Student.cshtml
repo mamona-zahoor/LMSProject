@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication15.Models.tbl_student>
+
+@{
+    ViewBag.Title = "Student";
+}
+@using (Html.BeginForm("Student", "Admin", FormMethod.Get))
+{
+    <p>
+        <h2>Search by:</h2>
+        @Html.RadioButton("searchby", "Name", true)<text>Name</text>
+        @Html.RadioButton("searchby", "Registration Number")<text>Reg.Number</text><br />
+        @Html.TextBox("search")<input type="submit" value="search" />
+
+    </p>
+
+
+}
+
+<p>
+  <h2>@Html.ActionLink("AddStudent", "AddStudent")</h2> 
+</p>
+<table class="table" style="margin-top: 2cm;" align="center">
+   
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Registration_Number)
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Registration_Number)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Editst", new {  id=item.ID }) |
+                      
+                        @Html.ActionLink("Delete", "Deletest", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
