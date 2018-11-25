@@ -1,0 +1,101 @@
+﻿
+@model LMSProject.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>    <script language="javascript" type="text/javascript">
+        function ShowParagraph(obj){
+            if (obj.value == "Student")
+            {
+        document.getElementById('Stu1').style.display = '';
+        document.getElementById('Stu2').style.display = '';
+        document.getElementById('t1').style.display = 'none';
+        document.getElementById('t2').style.display = 'none';
+
+        }
+        else if (obj.value == "Teacher")
+        {
+            document.getElementById('t1').style.display = '';
+            document.getElementById('t2').style.display = '';
+            document.getElementById('Stu1').style.display = 'none';
+            document.getElementById('Stu2').style.display = 'none';
+
+
+        }
+        else{
+        document.getElementById('t1').style.display = 'none';
+        document.getElementById('t2').style.display = 'none';
+        document.getElementById('Stu1').style.display = 'none';
+        document.getElementById('Stu2').style.display = 'none';
+
+        }
+        }
+    </script>
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterAs, new { @class = "col-md-2 control-label" }) <br />
+
+        &nbsp;  @Html.RadioButtonFor(model => model.RegisterAs, "Student", new { @onclick = "ShowParagraph(this)" })@Html.Label("Student")
+        <br />
+        &emsp; &emsp;&emsp; &emsp; &emsp;   &emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp;
+        @Html.RadioButtonFor(model => model.RegisterAs, "Teacher", new { @onclick = "ShowParagraph(this)" })
+        @Html.Label("Teacher")
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Registration_Num, new { id = "Stu1", @class = "col-md-2 control-label", style = "display: none;" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Registration_Num, new { id = "Stu2", @class = "form-control", style = "display: none;" }) <br />
+        </div>
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(m => m.Designation, new { id = "t1", @class = "col-md-2 control-label", style = "display: none;" })
+        <div class="col-md-10">
+
+            @Html.TextBoxFor(m => m.Designation, new { id = "t2", @class = "form-control", style = "display: none;" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Send Request" />
+        </div>
+
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
