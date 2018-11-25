@@ -16,6 +16,9 @@ namespace WebApplication15.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string Registration_Num { get; set; }
+        public string Designation { get; set; }
+        public string Name { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -70,6 +70,29 @@ namespace WebApplication15.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+
+        [Display(Name = "Register As")]
+        public string RegisterAs { get; set; }
+
+
+        [Display(Name = "Registration Number")]
+        [StringLength(11, ErrorMessage = "Registration Number is not valid", MinimumLength = 9)]
+        [DisplayFormat(DataFormatString = "2014-CS-001")]
+        public string Registration_Num { get; set; }
+
+
+        public string ErrorMessage { get; set; }
+
+
+        [Display(Name = "Designation")]
+        public string Designation { get; set; }
+
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

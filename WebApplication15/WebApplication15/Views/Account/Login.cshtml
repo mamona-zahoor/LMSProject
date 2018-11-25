@@ -3,61 +3,154 @@
 @{
     ViewBag.Title = "Log in";
 }
+@{
+    Layout = null;
+}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Calisto MT;
+        margin: 0;
+        background-image: url("../Images/t.jpeg");
+    }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+    /* Style the top navigation bar */
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        font-family: Calisto MT;
+    }
+
+        .navbar a {
+            float: right;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+    .signup-content {
+        width: 600px;
+        margin-right: 700px;
+        margin-top: 100px;
+        background: rgba(170, 153, 67, 0.75);
+        color: #fff;
+        float: right;
+    }
+
+    .submit {
+        width: 130px;
+        border-radius: 25px;
+        -moz-border-radius: 25px;
+        -webkit-border-radius: 25px;
+        text-transform: uppercase;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .submit-link {
+        border: 2px solid #fff;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 12px 0;
+        text-align: center;
+        color: 153;
+    }
+
+        .submit-link:hover {
+            background: #fff;
+            color: #b18757;
+        }
+</style>
+<title>Login - Library Management System </title>
+<div class="navbar">
+    @Html.ActionLink("Login", "Login", "Account")
+    @Html.ActionLink("Register", "Register", "Account")
+</div>
+<div class="signup-content">
+    <h2>  &emsp;@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <h4>&emsp; &emsp; &emsp; Use a local account to log in.</h4>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        &emsp;&emsp; @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            &emsp;&emsp;@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            &emsp;&emsp;@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                    <div class="form-group">
+                        &emsp;&emsp;@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            &emsp;&emsp;@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            &emsp;&emsp;@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                &emsp;&emsp;@Html.CheckBoxFor(m => m.RememberMe)
+                                &emsp;&emsp;@Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+                            <input type="submit" value="Log in" class="submit-link submit" />
+                        </div>
+                    </div>
+                    <p>
+                        &emsp;&emsp;@Html.ActionLink("Register as a new user", "Register")
+                    </p>
+                    @* Enable this once you have account confirmation enabled for password reset functionality*@
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+                    </p>
+                }
+            </section>
+        </div>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+    <br />
+
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

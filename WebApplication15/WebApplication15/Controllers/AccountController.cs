@@ -9,6 +9,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebApplication15.Models;
+using System.Net.Mail;
+using System.Net;
+using System.Data;
+using System.Collections.Generic;
+using System.Web.UI;
+using System.Data.SqlClient;
+using WebApplication15;
 
 namespace WebApplication15.Controllers
 {
@@ -22,7 +29,7 @@ namespace WebApplication15.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +41,9 @@ namespace WebApplication15.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -68,6 +75,18 @@ namespace WebApplication15.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            string EmailId = "";
+            string pwrd = "";
+            DatabaseConnection Db = DatabaseConnection.getInstance();
+            string data = "SELECT * from Admin";
+            DatabaseConnection.getInstance().getConnection();
+            SqlDataReader reader = DatabaseConnection.getInstance().getData(data);
+            while (reader.Read())
+            {
+                EmailId = reader.GetString(0);
+                pwrd = reader.GetString(1);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -76,18 +95,31 @@ namespace WebApplication15.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            if (model.Email == EmailId && model.Password == pwrd)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+
+                return RedirectToLocalMine(model, returnUrl);
+
+
+            }
+            else
+            {
+                switch (result)
+                {
+
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+
+                        return View(model);
+                }
             }
         }
 
@@ -120,7 +152,7 @@ namespace WebApplication15.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -151,19 +183,46 @@ namespace WebApplication15.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Registration_Num = model.Registration_Num, Designation = model.Designation };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    DatabaseConnection Db = DatabaseConnection.getInstance();
+                    string add = "INSERT INTO Applied (Username, Email, Registration_Num, Designation, Password) values ('" + model.Name + "', '" + model.Email + "', '" + model.Registration_Num + "', '" + model.Designation + "', '" + model.Password + "')";
+                    DatabaseConnection.getInstance().getConnection();
+                    DatabaseConnection.getInstance().exectuteQuery(add);                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    using (MailMessage mailMes = new MailMessage())
+                    {
+                        string body = "";
+                        mailMes.From = new MailAddress("cselibmansys@gmail.com");
 
-                    return RedirectToAction("Index", "Home");
+                        mailMes.Subject = "CSE Library Membership Request";
+                        if (model.RegisterAs == "Student")
+                        {
+                            body = "Name: " + model.Name + " \n Email : " + model.Email + " Registration Number: " + model.Registration_Num + "";
+                        }
+                        else if (model.RegisterAs == "Teacher")
+                        {
+                            body = "Name: " + model.Name + " \n Email : " + model.Email + " Designation : " + model.Designation + "";
+
+                        }
+                        mailMes.Body = body;
+                        mailMes.IsBodyHtml = true;
+                        mailMes.To.Add("librarian.csedept@gmail.com");
+                        using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                        {
+                            smtp.Credentials = new NetworkCredential("cselibmansys@gmail.com", "LibManSys123");
+                            smtp.EnableSsl = true;
+                            smtp.Send(mailMes);
+                        }
+
+                        return RedirectToAction("Register", "Account");
+                    }
                 }
                 AddErrors(result);
             }
@@ -435,6 +494,8 @@ namespace WebApplication15.Controllers
             }
         }
 
+        public object ClientScript { get; private set; }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -443,12 +504,21 @@ namespace WebApplication15.Controllers
             }
         }
 
+        private ActionResult RedirectToLocalMine(LoginViewModel model, string returnUrl)
+        {
+
+
+            return RedirectToAction("Register", "Account");
+
+        }
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -472,6 +542,7 @@ namespace WebApplication15.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
+
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
                 if (UserId != null)
                 {

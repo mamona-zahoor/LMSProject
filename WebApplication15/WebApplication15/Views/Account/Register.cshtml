@@ -1,41 +1,199 @@
-﻿@model WebApplication15.Models.RegisterViewModel
+﻿
+@model WebApplication15.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
-
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
+@{
+    Layout = null;
 }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Calisto MT;
+        margin: 0;
+        background-image: url("../Images/t.jpeg");
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+    /* Style the top navigation bar */
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        font-family: Calisto MT;
+    }
+
+        .navbar a {
+            float: right;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+    .signup-content {
+        width: 600px;
+        margin-right: 700px;
+        margin-top: 50px;
+        background: rgba(170, 153, 67, 0.75);
+        color: #fff;
+        float: right;
+    }
+
+    .submit {
+        width: 130px;
+        border-radius: 25px;
+        -moz-border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -o-border-radius: 25px;
+        -ms-border-radius: 25px;
+        text-transform: uppercase;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .submit-link {
+        border: 2px solid #fff;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 12px 0;
+        text-align: center;
+        color: 153;
+    }
+
+        .submit-link:hover {
+            background: #fff;
+            color: #b18757;
+        }
+</style>
+<title>Register - Library Management System </title>
+<div class="navbar">
+    @Html.ActionLink("Login", "Login", "Account")
+    @Html.ActionLink("Register", "Register", "Account")
+</div>
+<div class="signup-content">
+    <h2>&emsp;Apply for CSE library memebership</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            &emsp;&emsp;@Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            &emsp;&emsp;@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            &emsp;&emsp;@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            &emsp;&emsp;    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+        <script language="javascript" type="text/javascript">
+            function ShowParagraph(obj) {
+                if (obj.value == "Student") {
+                    document.getElementById('Stu1').style.display = '';
+                    document.getElementById('Stu2').style.display = '';
+                    document.getElementById('t1').style.display = 'none';
+                    document.getElementById('t2').style.display = 'none';
+
+                }
+                else if (obj.value == "Teacher") {
+                    document.getElementById('t1').style.display = '';
+                    document.getElementById('t2').style.display = '';
+                    document.getElementById('Stu1').style.display = 'none';
+                    document.getElementById('Stu2').style.display = 'none';
+
+
+                }
+                else {
+                    document.getElementById('t1').style.display = 'none';
+                    document.getElementById('t2').style.display = 'none';
+                    document.getElementById('Stu1').style.display = 'none';
+                    document.getElementById('Stu2').style.display = 'none';
+
+                }
+            }
+        </script>
+        <div class="form-group">
+            &emsp; &emsp;@Html.LabelFor(m => m.RegisterAs, new { @class = "col-md-2 control-label" }) <br />
+            &emsp; &emsp;  &emsp; &emsp;&emsp;&emsp; &emsp;&nbsp;
+            @Html.RadioButtonFor(model => model.RegisterAs, "Student", new { @onclick = "ShowParagraph(this)" })@Html.Label("Student")
+            <br />
+            &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp;
+            @Html.RadioButtonFor(model => model.RegisterAs, "Teacher", new { @onclick = "ShowParagraph(this)" })
+            @Html.Label("Teacher")
+        </div>
+
+        <div class="form-group">
+            &emsp; &emsp;@Html.LabelFor(m => m.Registration_Num, new { id = "Stu1", @class = "col-md-2 control-label", style = "display: none;" })
+            <div class="col-md-10">
+                &emsp; &emsp;&emsp; &emsp; &emsp;&emsp;&emsp;@Html.TextBoxFor(m => m.Registration_Num, new { id = "Stu2", @class = "form-control", style = "display: none;" }) <br />
+            </div>
+        </div>
+        <div class="form-group">
+
+            &emsp; &emsp;&emsp;@Html.LabelFor(m => m.Designation, new { id = "t1", @class = "col-md-2 control-label", style = "display: none;" })
+            <div class="col-md-10">
+                &emsp; &emsp;     &emsp; &emsp;&emsp;&emsp;&emsp;
+                @Html.TextBoxFor(m => m.Designation, new { id = "t2", @class = "form-control", style = "display: none;" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp;&emsp;
+                <input type="submit" class="submit-link submit" value="Send Request" />
+            </div>
+
+        </div>
+
+    }
+
+</div>
+
+
+
+
+
