@@ -16,7 +16,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Emails">
       <EntityTypeMapping TypeName="LibraryManagementSystemModel.Email">
-        <MappingFragment StoreEntitySet="Email">
+        <MappingFragment StoreEntitySet="Emails">
           <ScalarProperty Name="Email1" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>

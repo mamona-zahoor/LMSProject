@@ -12,7 +12,7 @@
     <Property Name="Status" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
-  <EntityType Name="Email">
+  <EntityType Name="Emails">
     <Key>
       <PropertyRef Name="Email" />
     </Key>
@@ -50,7 +50,7 @@
   </EntityType>
   <EntityContainer Name="LibraryManagementSystemModelStoreContainer">
     <EntitySet Name="All_Books" EntityType="Self.All_Books" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Issued_Books" EntityType="Self.Issued_Books" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_student" EntityType="Self.tbl_student" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_teacher" EntityType="Self.tbl_teacher" Schema="dbo" store:Type="Tables" />

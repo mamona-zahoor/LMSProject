@@ -97,10 +97,17 @@ namespace WebApplication15.Controllers
             }
 
         }
+
+
+
         public ActionResult AddIssuedbook()
         {
             return View();
         }
+
+
+
+        
         public int Fine(DateTime t1, DateTime t2)
         {
             TimeSpan t = t1.Subtract(t2);
@@ -274,7 +281,7 @@ namespace WebApplication15.Controllers
                 }
             }
            
-            return View();
+            return View(t);
         }
         public ActionResult Editst(int id)
         {
@@ -292,7 +299,7 @@ namespace WebApplication15.Controllers
                 }
             }
 
-            return View();
+            return View(st);
         }
         [HttpPost]
         public ActionResult Editst(int id, Student t)
@@ -341,11 +348,7 @@ namespace WebApplication15.Controllers
                 }
             }
             db.SaveChanges();
-
-
-
-
-            return View("Teacher");
+            return RedirectToAction("Student");
         }
 
         // GET: Admin/Delete/5
@@ -361,11 +364,7 @@ namespace WebApplication15.Controllers
                 }
             }
             db.SaveChanges();
-
-
-
-
-            return View("Teacher");
+            return RedirectToAction("Teacher");
         }
 
         // POST: Admin/Delete/5
@@ -382,5 +381,8 @@ namespace WebApplication15.Controllers
                 return View();
             }
         }
+
+
+      
     }
 }

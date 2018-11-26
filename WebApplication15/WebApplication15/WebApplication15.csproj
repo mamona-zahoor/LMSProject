@@ -305,7 +305,6 @@
     <Content Include="Views\Admin\IssuedBooks.cshtml" />
     <Content Include="Views\Admin\AddIssuedbook.cshtml" />
     <Content Include="Views\Admin\AddAllBooks.cshtml" />
-    <Content Include="Views\Admin\AllBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
