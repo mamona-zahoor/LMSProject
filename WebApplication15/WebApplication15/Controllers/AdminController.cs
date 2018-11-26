@@ -17,6 +17,49 @@ namespace WebApplication15.Controllers
         {
             return View();
         }
+        public ActionResult AllBooks()
+        {
+            using (LMSEntities db = new LMSEntities())
+            {
+                return View(db.All_Books.ToList());
+            }
+        }
+        public ActionResult AddAllBooks()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAllBooks(All_Books b)
+        {
+            try
+            {
+                using (LMSEntities db = new LMSEntities())
+                {
+                    AllBooks bk = new AllBooks();
+                    bk.Name = b.Name;
+                    bk.Number = b.Number;
+                    bk.Price = b.Price;
+                    bk.Author = b.Author;
+                    bk.Edition = b.Edition;
+                    bk.Status = b.Status;
+
+                    db.All_Books.Add(b);
+                    db.SaveChanges();
+
+                }
+              
+
+                return RedirectToAction("AllBooks");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
         public ActionResult Student(string searchby, string search)
             {
             using (LMSEntities db = new LMSEntities())
@@ -167,10 +210,7 @@ namespace WebApplication15.Controllers
                 Teacher teacher = new Teacher();
                 teacher.Name = t.Name;
                 teacher.Email = t.Email;
-                
-               
-
-                 e.Email1 = t.Email;
+               e.Email1 = t.Email;
                 teacher.Designation = t.Designation;
 
                

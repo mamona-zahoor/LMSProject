@@ -4,12 +4,13 @@
     <EntitySetMapping Name="All_Books">
       <EntityTypeMapping TypeName="LibraryManagementSystemModel.All_Books">
         <MappingFragment StoreEntitySet="All_Books">
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Author" ColumnName="Author" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Edition" ColumnName="Edition" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

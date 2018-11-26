@@ -178,6 +178,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AllBooks.cs" />
     <Compile Include="Models\All_Books.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -303,6 +304,8 @@
     <Content Include="Views\Admin\Editst.cshtml" />
     <Content Include="Views\Admin\IssuedBooks.cshtml" />
     <Content Include="Views\Admin\AddIssuedbook.cshtml" />
+    <Content Include="Views\Admin\AddAllBooks.cshtml" />
+    <Content Include="Views\Admin\AllBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

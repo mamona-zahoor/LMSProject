@@ -2,14 +2,15 @@
 <Schema Namespace="LibraryManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="All_Books">
     <Key>
-      <PropertyRef Name="Number" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="Number" Type="varchar" MaxLength="50" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Number" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Author" Type="varchar" MaxLength="50" />
-    <Property Name="Price" Type="int" />
     <Property Name="Edition" Type="int" />
+    <Property Name="Price" Type="int" />
     <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="Email">
     <Key>
@@ -34,7 +35,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Registration_Number" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
@@ -43,7 +44,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Designation" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
