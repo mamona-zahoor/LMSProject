@@ -4,10 +4,21 @@
     ViewBag.Title = "AllBooks";
 }
 
-<h2>AllBooks</h2>
+@using (Html.BeginForm("AllBooks", "Admin", FormMethod.Get))
+{
+    <p>
+        <h2>Search by:</h2>
+        @Html.RadioButton("searchby", "Number", true)<text>BookNumber</text>
+        @Html.RadioButton("searchby", "Name")<text>Name</text><br />
+        @Html.TextBox("search")<input type="submit" value="search" />
+
+    </p>
+
+
+}
 
 <p>
-    @Html.ActionLink("ADD Book", "AddAllBooks")
+    @Html.ActionLink("Add Book", "AddAllBooks")
 </p>
 <table class="table">
     <tr>
@@ -53,12 +64,12 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Edit", "Editallbooks", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Delete", "DeleteAllBooks", new { id=item.ID })
         </td>
     </tr>
 }
 
 </table>
-<br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br />

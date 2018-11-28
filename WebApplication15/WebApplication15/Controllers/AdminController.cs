@@ -17,11 +17,18 @@ namespace WebApplication15.Controllers
         {
             return View();
         }
-        public ActionResult AllBooks()
+        public ActionResult AllBooks(string searchby, string search)
         {
             using (LMSEntities db = new LMSEntities())
             {
-                return View(db.All_Books.ToList());
+                if (searchby == "Name")
+                {
+                    return View(db.All_Books.Where(x => x.Name.Contains(search) || search == null).ToList());
+                }
+                else
+                {
+                    return View(db.All_Books.Where(x => x.Number.Contains(search) || search == null).ToList());
+                }
             }
         }
         public ActionResult AddAllBooks()
@@ -90,7 +97,7 @@ namespace WebApplication15.Controllers
                 }
                 else
                 {
-                    return View(db.Issued_Books.Where(x => x.Email.Contains(search) || search == null).ToList());
+                    return View(db.Issued_Books.Where(x => x.Number.Contains(search) || search == null).ToList());
                 }
 
 
@@ -121,9 +128,10 @@ namespace WebApplication15.Controllers
         {
             try
             {
+
                 IssuedBooksVM m = new IssuedBooksVM();
                 m.Number = v.Number;
-                m.Email = v.Email;
+               
                 m.Issue_date = v.Issue_date;
                 m.Return_date = v.Return_date;
                 m.Due_date = v.Due_date;
@@ -145,18 +153,19 @@ namespace WebApplication15.Controllers
             
         }
         [HttpPost]
-        public ActionResult AddStudent(tbl_student s, Email e)
+        public ActionResult AddStudent(tbl_student s, User e)
         {
             try
             {
                 Student st = new Student();
                 st.Email = s.Email;
-                e.Email1 = s.Email;
+                e.Email = s.Email;
+                e.ID = 2;
                 st.Name = s.Name;
                 st.Registration_Number = s.Registration_Number;
                 LMSEntities db = new LMSEntities();
                 db.tbl_student.Add(s);
-                db.Emails.Add(e);
+                db.Users.Add(e);
                 db.SaveChanges();
 
                 return RedirectToAction("Student");
@@ -209,7 +218,7 @@ namespace WebApplication15.Controllers
         }
         */
         [HttpPost]
-        public ActionResult AddTeacher(tbl_teacher t, Email e)
+        public ActionResult AddTeacher(tbl_teacher t, User e)
         {
             try
             {
@@ -217,12 +226,13 @@ namespace WebApplication15.Controllers
                 Teacher teacher = new Teacher();
                 teacher.Name = t.Name;
                 teacher.Email = t.Email;
-               e.Email1 = t.Email;
+               e.Email = t.Email;
+                e.ID = 1;
                 teacher.Designation = t.Designation;
 
                
                 DB.tbl_teacher.Add(t);
-               DB.Emails.Add(e);
+               DB.Users.Add(e);
                 
                 DB.SaveChanges();
 
@@ -307,6 +317,13 @@ namespace WebApplication15.Controllers
 
             LMSEntities db = new LMSEntities();
                 db.tbl_student.Find(id).Name = t.Name;
+            foreach(User u in db.Users)
+            {
+                if(db.tbl_student.Find(id).Email == u.Email)
+                {
+                    u.Email = t.Email;
+                }
+            }
                 db.tbl_student.Find(id).Email = t.Email;
 
                 db.tbl_student.Find(id).Registration_Number = t.Registration_Number;
@@ -323,6 +340,14 @@ namespace WebApplication15.Controllers
             {
                 LMSEntities db = new LMSEntities();
                 db.tbl_teacher.Find(id).Name = t.Name;
+                foreach (User u in db.Users)
+                {
+                    if (db.tbl_teacher.Find(id).Email == u.Email)
+                    {
+                        u.Email = t.Email;
+                    }
+                }
+
                 db.tbl_teacher.Find(id).Email = t.Email;
                 
                 db.tbl_teacher.Find(id).Designation = t.Designation;
@@ -339,6 +364,13 @@ namespace WebApplication15.Controllers
         public ActionResult Deletest(int id)
         {
             LMSEntities db = new LMSEntities();
+            foreach (User u in db.Users)
+            {
+                if (db.tbl_student.Find(id).Email == u.Email)
+                {
+                    db.Users.Remove(u);
+                }
+            }
             foreach (tbl_student t1 in db.tbl_student)
             {
                 if (t1.ID == id)
@@ -355,6 +387,13 @@ namespace WebApplication15.Controllers
         public ActionResult Delete(int id)
         {
             LMSEntities db = new LMSEntities();
+            foreach (User u in db.Users)
+            {
+                if (db.tbl_teacher.Find(id).Email == u.Email)
+                {
+                    db.Users.Remove(u);
+                }
+            }
             foreach (tbl_teacher t1 in db.tbl_teacher)
             {
                 if (t1.ID == id)
@@ -366,6 +405,79 @@ namespace WebApplication15.Controllers
             db.SaveChanges();
             return RedirectToAction("Teacher");
         }
+
+
+
+
+        public ActionResult Editallbooks(int id)
+        {
+            AllBooks st = new AllBooks();
+            LMSEntities db = new LMSEntities();
+            foreach (All_Books ST in db.All_Books)
+            {
+                if (ST.ID == id)
+                {
+                    st.Name = ST.Name;
+                    st.Author = ST.Author;
+                    st.Price = ST.Price;
+                    st.Number = ST.Number;
+                    st.Edition = ST.Edition;
+                    st.Status = ST.Status;
+                    break;
+
+                }
+            }
+
+            return View(st);
+        }
+        [HttpPost]
+        public ActionResult Editallbooks(int id, AllBooks t)
+        {
+
+            LMSEntities db = new LMSEntities();
+            db.All_Books.Find(id).Name = t.Name;
+            db.All_Books.Find(id).Author = t.Author;
+            db.All_Books.Find(id).Number = t.Number;
+            db.All_Books.Find(id).Price = t.Price;
+            db.All_Books.Find(id).Edition = t.Edition;
+            db.All_Books.Find(id).Status = t.Status;
+
+
+            db.SaveChanges();
+
+
+            return RedirectToAction("AllBooks");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public ActionResult DeleteAllBooks(int id)
+        {
+            LMSEntities db = new LMSEntities();
+            foreach(All_Books a in db.All_Books)
+            {
+                if(a.ID == id)
+                {
+                    db.All_Books.Remove(a);
+                }
+            }
+            return RedirectToAction("AllBooks");
+        }
+
+
 
         // POST: Admin/Delete/5
         [HttpPost]

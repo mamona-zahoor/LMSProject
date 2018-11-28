@@ -12,14 +12,9 @@ namespace WebApplication15.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class All_Books
+    public partial class Admin
     {
-        public string Number { get; set; }
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public Nullable<int> Edition { get; set; }
-        public Nullable<int> Price { get; set; }
-        public int ID { get; set; }
-        public string Status { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

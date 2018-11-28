@@ -1,34 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="LibraryManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="All_Books">
+<Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Applied">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Registeration_Num" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Issued_Books">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Edition" Type="Int32" />
-    <Property Name="Price" Type="Int32" />
-    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
-  <EntityType Name="Email">
-    <Key>
-      <PropertyRef Name="Email1" />
-    </Key>
-    <Property Name="Email1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Issued_Books">
-    <Key>
-      <PropertyRef Name="Number" />
-    </Key>
-    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Return_date" Type="DateTime" Precision="3" />
-    <Property Name="Issue_date" Type="DateTime" Precision="3" />
-    <Property Name="Due_date" Type="DateTime" Precision="3" />
+    <Property Name="Return_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Issue_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Fine" Type="Int32" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Issued_Books_Users" FromRole="Issued_Books" ToRole="Users" />
   </EntityType>
   <EntityType Name="tbl_student">
     <Key>
@@ -48,11 +49,50 @@
     <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Issued_Books" Relationship="Self.FK_Issued_Books_Users" FromRole="Users" ToRole="Issued_Books" />
+  </EntityType>
+  <Association Name="FK_Issued_Books_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Issued_Books" Type="Self.Issued_Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Issued_Books">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="LMSEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="All_Books" EntityType="Self.All_Books" />
-    <EntitySet Name="Emails" EntityType="Self.Email" />
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Applieds" EntityType="Self.Applied" />
     <EntitySet Name="Issued_Books" EntityType="Self.Issued_Books" />
     <EntitySet Name="tbl_student" EntityType="Self.tbl_student" />
     <EntitySet Name="tbl_teacher" EntityType="Self.tbl_teacher" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Issued_Books_Users" Association="Self.FK_Issued_Books_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Issued_Books" EntitySet="Issued_Books" />
+    </AssociationSet>
+    <EntitySet Name="All_Books" EntityType="LMSModel.All_Books" />
   </EntityContainer>
+  <EntityType Name="All_Books">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Edition" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

@@ -12,8 +12,12 @@ namespace WebApplication15.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Email
+    public partial class Applied
     {
-        public string Email1 { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Registeration_Num { get; set; }
+        public string Designation { get; set; }
+        public string Password { get; set; }
     }
 }

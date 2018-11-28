@@ -25,10 +25,12 @@ namespace WebApplication15.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<All_Books> All_Books { get; set; }
-        public virtual DbSet<Email> Emails { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Applied> Applieds { get; set; }
         public virtual DbSet<Issued_Books> Issued_Books { get; set; }
         public virtual DbSet<tbl_student> tbl_student { get; set; }
         public virtual DbSet<tbl_teacher> tbl_teacher { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<All_Books> All_Books { get; set; }
     }
 }
