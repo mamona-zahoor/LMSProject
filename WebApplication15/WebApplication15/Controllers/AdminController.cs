@@ -7,6 +7,8 @@ using WebApplication15.Models;
 using System.Data.Entity;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Mail;
+
 namespace WebApplication15.Controllers
 {
     public class AdminController : Controller
@@ -16,6 +18,30 @@ namespace WebApplication15.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        private void SendEMail(string emailid, string subject, string body)
+        {
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.Host = "smtp.gmail.com";
+            client.Port = 587;
+
+
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("cselibmansys@gmail.com", "LibManSys123");
+            client.UseDefaultCredentials = false;
+            client.Credentials = credentials;
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+            msg.From = new MailAddress("cselibmansys@gmail.com");
+            msg.To.Add(new MailAddress(emailid));
+
+            msg.Subject = subject;
+            msg.IsBodyHtml = true;
+            msg.Body = body;
+
+            client.Send(msg);
         }
         public ActionResult AllBooks(string searchby, string search)
         {
@@ -167,6 +193,7 @@ namespace WebApplication15.Controllers
                 db.tbl_student.Add(s);
                 db.Users.Add(e);
                 db.SaveChanges();
+                SendEMail(s.Email,"CSE Library Membership", "Your request for library membership has been accepted.");
 
                 return RedirectToAction("Student");
             }
@@ -236,8 +263,9 @@ namespace WebApplication15.Controllers
                 
                 DB.SaveChanges();
 
+                SendEMail(t.Email, "CSE Library Membership", "Your request for library membership has been accepted.");
 
-               
+
 
                 return RedirectToAction("Teacher");
             }

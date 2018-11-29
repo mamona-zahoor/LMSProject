@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LibraryManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
           <Property Name="Password" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="All_Books">
           <Key>
@@ -29,10 +30,11 @@
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Username" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
-          <Property Name="Registeration_Num" Type="nchar" MaxLength="11" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Registeration_Num" Type="nchar" MaxLength="11" Nullable="false" />
           <Property Name="Designation" Type="nchar" MaxLength="30" />
-          <Property Name="Password" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ResetPassword" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Issued_Books">
           <Key>
@@ -55,6 +57,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Registration_Number" Type="varchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="tbl_teacher">
           <Key>
@@ -64,6 +67,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Designation" Type="varchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -85,7 +89,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LMSModelStoreContainer">
+        <EntityContainer Name="LibraryManagementSystemModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="All_Books" EntityType="Self.All_Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Applied" EntityType="Self.Applied" Schema="dbo" store:Type="Tables" />
@@ -98,26 +102,41 @@
             <End Role="Issued_Books" EntitySet="Issued_Books" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LibraryManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="All_Books">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Edition" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Applied">
           <Key>
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Username" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Registeration_Num" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Registeration_Num" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Designation" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResetPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Issued_Books">
           <Key>
@@ -141,6 +160,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Registration_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_teacher">
           <Key>
@@ -150,6 +170,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -174,6 +195,7 @@
         </Association>
         <EntityContainer Name="LMSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="All_Books" EntityType="Self.All_Books" />
           <EntitySet Name="Applieds" EntityType="Self.Applied" />
           <EntitySet Name="Issued_Books" EntityType="Self.Issued_Books" />
           <EntitySet Name="tbl_student" EntityType="Self.tbl_student" />
@@ -183,47 +205,49 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Issued_Books" EntitySet="Issued_Books" />
           </AssociationSet>
-          <EntitySet Name="All_Books" EntityType="LMSModel.All_Books" />
         </EntityContainer>
-        <EntityType Name="All_Books">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Edition" Type="Int32" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities">
+        <EntityContainerMapping StorageEntityContainer="LibraryManagementSystemModelStoreContainer" CdmEntityContainer="LMSEntities">
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="LMSModel.Admin">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="All_Books">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.All_Books">
+              <MappingFragment StoreEntitySet="All_Books">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Applieds">
-            <EntityTypeMapping TypeName="LMSModel.Applied">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.Applied">
               <MappingFragment StoreEntitySet="Applied">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Registeration_Num" ColumnName="Registeration_Num" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Issued_Books">
-            <EntityTypeMapping TypeName="LMSModel.Issued_Books">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.Issued_Books">
               <MappingFragment StoreEntitySet="Issued_Books">
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -237,44 +261,33 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_student">
-            <EntityTypeMapping TypeName="LMSModel.tbl_student">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.tbl_student">
               <MappingFragment StoreEntitySet="tbl_student">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Registration_Number" ColumnName="Registration_Number" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_teacher">
-            <EntityTypeMapping TypeName="LMSModel.tbl_teacher">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.tbl_teacher">
               <MappingFragment StoreEntitySet="tbl_teacher">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="LMSModel.User">
+            <EntityTypeMapping TypeName="LibraryManagementSystemModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="All_Books">
-            <EntityTypeMapping TypeName="LMSModel.All_Books">
-              <MappingFragment StoreEntitySet="All_Books">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Edition" ColumnName="Edition" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

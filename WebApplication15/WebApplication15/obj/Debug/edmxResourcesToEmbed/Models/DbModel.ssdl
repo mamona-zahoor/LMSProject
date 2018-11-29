@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="LibraryManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Admin">
     <Key>
       <PropertyRef Name="Email" />
     </Key>
     <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
     <Property Name="Password" Type="nchar" MaxLength="11" Nullable="false" />
+    <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="All_Books">
     <Key>
@@ -24,10 +25,11 @@
       <PropertyRef Name="Email" />
     </Key>
     <Property Name="Username" Type="nchar" MaxLength="30" Nullable="false" />
-    <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
-    <Property Name="Registeration_Num" Type="nchar" MaxLength="11" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Registeration_Num" Type="nchar" MaxLength="11" Nullable="false" />
     <Property Name="Designation" Type="nchar" MaxLength="30" />
-    <Property Name="Password" Type="nchar" MaxLength="30" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResetPassword" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Issued_Books">
     <Key>
@@ -50,6 +52,7 @@
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Registration_Number" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="tbl_teacher">
     <Key>
@@ -59,6 +62,7 @@
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Designation" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResetPassword" Type="varchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -80,7 +84,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="LMSModelStoreContainer">
+  <EntityContainer Name="LibraryManagementSystemModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="All_Books" EntityType="Self.All_Books" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Applied" EntityType="Self.Applied" Schema="dbo" store:Type="Tables" />

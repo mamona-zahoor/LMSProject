@@ -19,7 +19,7 @@ namespace WebApplication15.Models
         public string Author { get; set; }
         public Nullable<int> Edition { get; set; }
         public Nullable<int> Price { get; set; }
-        public int ID { get; set; }
         public string Status { get; set; }
+        public int ID { get; set; }
     }
 }

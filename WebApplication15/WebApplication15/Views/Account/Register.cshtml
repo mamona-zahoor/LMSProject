@@ -68,8 +68,6 @@
         border-radius: 25px;
         -moz-border-radius: 25px;
         -webkit-border-radius: 25px;
-        -o-border-radius: 25px;
-        -ms-border-radius: 25px;
         text-transform: uppercase;
         font-size: 13px;
         cursor: pointer;
@@ -86,8 +84,7 @@
         vertical-align: middle;
         padding: 12px 0;
         text-align: center;
-        color: 153;
-    }
+        }
 
         .submit-link:hover {
             background: #fff;
@@ -185,15 +182,27 @@
             <div class="col-md-offset-2 col-md-8">
                 &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp;&emsp;
                 <input type="submit" class="submit-link submit" value="Send Request" />
+
+
             </div>
 
         </div>
 
+
+
+
+        if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+            window.onload = function () {
+                alert(@ViewBag.Message);
+            };
+            </script>
+        }
     }
 
+
 </div>
-
-
 
 
 

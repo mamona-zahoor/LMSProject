@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea2c8ae3da1d4820a06d88e66d94496f" Name="Diagram1">
-        <EntityTypeShape EntityType="LMSModel.Admin" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.Applied" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.Issued_Books" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.tbl_student" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.tbl_teacher" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LMSModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="LMSModel.FK_Issued_Books_Users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LMSModel.All_Books" Width="1.5" PointX="0.75" PointY="7.75" />
+      <Diagram DiagramId="5e5849b7525b4c188fcf735df1bf1fb0" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.Admin" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.All_Books" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.Applied" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.Issued_Books" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.tbl_student" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.tbl_teacher" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementSystemModel.User" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="LibraryManagementSystemModel.FK_Issued_Books_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

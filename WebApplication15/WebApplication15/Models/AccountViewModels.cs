@@ -39,12 +39,6 @@ namespace WebApplication15.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
 
     public class LoginViewModel
     {
@@ -114,15 +108,15 @@ namespace WebApplication15.Models
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [Display(Name = "Old Password")]
+        public string Old_Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "New password")]
+        public string New_Password { get; set; }
 
-        public string Code { get; set; }
+
     }
 
     public class ForgotPasswordViewModel
@@ -132,4 +126,19 @@ namespace WebApplication15.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+    public class ForgotPasswordConfirmation
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string New { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("New", ErrorMessage = "The password and confirmation password do not match.")]
+
+        public string Confirm { get; set; }
+    }
 }
+

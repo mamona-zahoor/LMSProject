@@ -64,6 +64,7 @@ namespace WebApplication15.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -189,7 +190,7 @@ namespace WebApplication15.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     DatabaseConnection Db = DatabaseConnection.getInstance();
-                    string add = "INSERT INTO Applied (Username, Email, Registration_Num, Designation, Password) values ('" + model.Name + "', '" + model.Email + "', '" + model.Registration_Num + "', '" + model.Designation + "', '" + model.Password + "')";
+                    string add = "INSERT INTO Applied (Username, Email, Registeration_Num, Designation, Password, ResetPassword) values ('" + model.Name + "', '" + model.Email + "', '" + model.Registration_Num + "', '" + model.Designation + "', '" + model.Password + "', '')";
                     DatabaseConnection.getInstance().getConnection();
                     DatabaseConnection.getInstance().exectuteQuery(add);                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -221,6 +222,7 @@ namespace WebApplication15.Controllers
                             smtp.Send(mailMes);
                         }
 
+                        ViewBag.Message = string.Format("Your request has been sent!");
                         return RedirectToAction("Register", "Account");
                     }
                 }
@@ -231,6 +233,12 @@ namespace WebApplication15.Controllers
             return View(model);
         }
 
+
+        public ActionResult MessageShow()
+        {
+
+            return View();
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -257,43 +265,195 @@ namespace WebApplication15.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+
+                bool areEqual = false;
+                string[] E = new string[30];
+                string[] M = new string[30];
+                string resetCode = GenerateRandomPassword(6);
+                LMSEntities db = new LMSEntities();
+                foreach (tbl_student s in db.tbl_student)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    E = s.Email.Split(' ');
+                    M = model.Email.Split(' ');
+                    areEqual = E.SequenceEqual(M);
+                    if (areEqual)
+                    {
+                        int n = s.ID;
+                        db.tbl_student.Find(n).ResetPassword = resetCode;
+                    }
+                }
+                if (!areEqual)
+                {
+                    foreach (tbl_teacher t in db.tbl_teacher)
+                    {
+                        E = t.Email.Split(' ');
+                        M = model.Email.Split(' ');
+                        areEqual = E.SequenceEqual(M);
+                        if (areEqual)
+                        {
+                            int n = t.ID;
+                            db.tbl_teacher.Find(n).ResetPassword = resetCode;
+                        }
+                    }
+                }
+                if (!areEqual)
+                {
+                    foreach (Admin A in db.Admins)
+                    {
+                        E = A.Email.Split(' ');
+                        M = model.Email.Split(' ');
+                        areEqual = E.SequenceEqual(M);
+                        if (areEqual)
+                        {
+                            db.Admins.Find(model.Email).ResetPassword = resetCode;
+                        }
+
+                    }
+                }
+                db.SaveChanges();
+                if (areEqual)
+                {
+                    SendEMail(model.Email, "Your verification code is " + resetCode + ".", "Verify your library account.");
+                }
+                else
+                {
+
+                    ModelState.AddModelError("", "User is not registered in our system!!");
+                    return View(model);
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                return View("ForgotPasswordConfirmation");
+
+
+
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+
+        private void SendEMail(string emailid, string subject, string body)
+        {
+            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.Host = "smtp.gmail.com";
+            client.Port = 587;
+
+
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("cselibmansys@gmail.com", "LibManSys123");
+            client.UseDefaultCredentials = false;
+            client.Credentials = credentials;
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+            msg.From = new MailAddress("cselibmansys@gmail.com");
+            msg.To.Add(new MailAddress(emailid));
+
+            msg.Subject = subject;
+            msg.IsBodyHtml = true;
+            msg.Body = body;
+
+            client.Send(msg);
+        }
+        private string GenerateRandomPassword(int length)
+        {
+            string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789!@$?_-*&#+";
+            char[] chars = new char[length];
+            Random rd = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
+            }
+            return new string(chars);
+        }
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public ActionResult ForgotPasswordConfirmation(string code, string New, string Confirm)
         {
+            string e = "";
+            if (ModelState.IsValid)
+            {
+                if (code == null || New == null || Confirm == null)
+                {
+                    return View();
+                }
+                LMSEntities db = new LMSEntities();
+                bool areEqual = false, mail = false;
+                foreach (tbl_student s in db.tbl_student)
+                {
+                    if (s.ResetPassword == code)
+                    {
+                        e = s.Email;
+                        areEqual = true;
+                    }
+                }
+                if (!areEqual)
+                {
+                    foreach (tbl_teacher t in db.tbl_teacher)
+                    {
+                        if (t.ResetPassword == code)
+                        {
+                            e = t.Email;
+                            areEqual = true;
+                        }
+                    }
+                }
+                if (!areEqual)
+                {
+                    foreach (Admin A in db.Admins)
+                    {
+                        if (A.ResetPassword == code)
+                        {
+                            e = A.Email;
+                            areEqual = true;
+                            mail = true;
+                        }
+                    }
+                }
+                if (areEqual)
+                {
+                    if (New == Confirm)
+                    {
+                        if (mail)
+                        {
+                            db.Admins.Find(e).Password = Confirm;
+                            db.SaveChanges();
+                            return View("Login");
+                        }
+                        else
+                        {
+                            db.Applieds.Find(e).Password = Confirm;
+
+                            return View("Login");
+                        }
+                    }
+
+                }
+
+                else
+                {
+                    return View();
+                }
+            }
             return View();
+
         }
+
+
+
 
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword()
         {
-            return code == null ? View("Error") : View();
+            return View();
         }
 
         //
@@ -301,25 +461,85 @@ namespace WebApplication15.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            bool areEqual = false, done = false, Pwrd = false;
+            string[] E = new string[1];
+            string[] M = new string[1];
+            string[] P = new string[1];
+            string[] MP = new string[1];
+
+            string resetCode = GenerateRandomPassword(6);
+            LMSEntities db = new LMSEntities();
+            foreach (tbl_student s in db.tbl_student)
             {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                E = s.Email.Split(' ');
+                M = model.Email.Split(' ');
+                areEqual = E.SequenceEqual(M);
+                if (areEqual)
+                {
+                    P = db.Applieds.Find(s.Email).Password.Split(' ');
+                    MP = model.Old_Password.Split(' ');
+                    Pwrd = MP[0].SequenceEqual(P[0]);
+                    if (Pwrd)
+                    {
+                        db.Applieds.Find(model.Email).Password = model.New_Password;
+                        done = true;
+                    }
+                }
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
+            db.SaveChanges();
+            if (!done)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                foreach (tbl_teacher t in db.tbl_teacher)
+                {
+                    E = t.Email.Split(' ');
+                    M = model.Email.Split(' ');
+                    P = db.Applieds.Find(model.Email).Password.Split(' ');
+                    MP = model.Old_Password.Split(' ');
+                    Pwrd = P.SequenceEqual(MP);
+                    areEqual = E.SequenceEqual(M);
+                    if (areEqual)
+                    {
+                        P = db.Applieds.Find(t.Email).Password.Split(' ');
+                        MP = model.Old_Password.Split(' ');
+                        Pwrd = MP[0].SequenceEqual(P[0]);
+                        if (Pwrd)
+                        {
+                            done = true;
+                            db.Applieds.Find(model.Email).Password = model.New_Password;
+                        }
+                    }
+                }
             }
-            AddErrors(result);
-            return View();
+            db.SaveChanges();
+            if (!done)
+            {
+                foreach (Admin A in db.Admins)
+                {
+                    E = A.Email.Split(' ');
+                    M = model.Email.Split(' ');
+                    areEqual = E.SequenceEqual(M);
+                    if (areEqual)
+                    {
+                        done = true;
+                        db.Admins.Find(model.Email).Password = model.New_Password;
+                    }
+
+                }
+            }
+            db.SaveChanges();
+            if (!done)
+            {
+                ModelState.AddModelError("", "User is not registered in our system!!");
+                return View(model);
+            }
+
+            return View("Login");
         }
 
         //
