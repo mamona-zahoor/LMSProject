@@ -45,7 +45,7 @@ namespace WebApplication15.Controllers
         }
         public ActionResult AllBooks(string searchby, string search)
         {
-            using (LMSEntities db = new LMSEntities())
+            using (LMSEntities2 db = new LMSEntities2())
             {
                 if (searchby == "Name")
                 {
@@ -67,7 +67,7 @@ namespace WebApplication15.Controllers
         {
             try
             {
-                using (LMSEntities db = new LMSEntities())
+                using (LMSEntities2 db = new LMSEntities2())
                 {
                     AllBooks bk = new AllBooks();
                     bk.Name = b.Name;
@@ -95,7 +95,7 @@ namespace WebApplication15.Controllers
 
         public ActionResult Student(string searchby, string search)
             {
-            using (LMSEntities db = new LMSEntities())
+            using (LMSEntities2 db = new LMSEntities2())
             {
                 if (searchby == "Name")
                 {
@@ -115,7 +115,7 @@ namespace WebApplication15.Controllers
         }
         public ActionResult IssuedBooks(string searchby, string search)
         {
-            using (LMSEntities db = new LMSEntities())
+            using (LMSEntities2 db = new LMSEntities2())
             {
                 if (searchby == "Number")
                 {
@@ -123,7 +123,7 @@ namespace WebApplication15.Controllers
                 }
                 else
                 {
-                    return View(db.Issued_Books.Where(x => x.Number.Contains(search) || search == null).ToList());
+                    return View(db.Issued_Books.Where(x => x.Email.Contains(search) || search == null).ToList());
                 }
 
 
@@ -138,9 +138,16 @@ namespace WebApplication15.Controllers
             return View();
         }
 
+        /*  foreach(User u in db.Users)
+                 {
+                     if(u.Email == v.Email)
+                     {
+                         v.UserID = u.UserID;
+                     }
+                 }
+                 */
 
 
-        
         public int Fine(DateTime t1, DateTime t2)
         {
             TimeSpan t = t1.Subtract(t2);
@@ -154,10 +161,18 @@ namespace WebApplication15.Controllers
         {
             try
             {
-
+                LMSEntities2 db = new LMSEntities2();
                 IssuedBooksVM m = new IssuedBooksVM();
                 m.Number = v.Number;
-               
+                m.Email = v.Email;
+                foreach (User u in db.Users)
+                {
+                    if (u.Email == v.Email)
+                    {
+                        v.UserID = u.UserID;
+                    }
+                }
+
                 m.Issue_date = v.Issue_date;
                 m.Return_date = v.Return_date;
                 m.Due_date = v.Due_date;
@@ -165,7 +180,10 @@ namespace WebApplication15.Controllers
                 m.Fine = v.Fine;
                 m.Status = v.Status;
 
-                LMSEntities db = new LMSEntities();
+
+                m.UserID = v.UserID;
+
+
                 db.Issued_Books.Add(v);
 
                 db.SaveChanges();
@@ -189,7 +207,7 @@ namespace WebApplication15.Controllers
                 e.ID = 2;
                 st.Name = s.Name;
                 st.Registration_Number = s.Registration_Number;
-                LMSEntities db = new LMSEntities();
+                LMSEntities2 db = new LMSEntities2();
                 db.tbl_student.Add(s);
                 db.Users.Add(e);
                 db.SaveChanges();
@@ -205,7 +223,7 @@ namespace WebApplication15.Controllers
         }
         public ActionResult Teacher(string searchby, string search)
         {
-            using (LMSEntities db = new LMSEntities())
+            using (LMSEntities2 db = new LMSEntities2())
             {
                 if(searchby == "Name")
                 {
@@ -249,7 +267,7 @@ namespace WebApplication15.Controllers
         {
             try
             {
-                LMSEntities DB = new LMSEntities();
+                LMSEntities2 DB = new LMSEntities2();
                 Teacher teacher = new Teacher();
                 teacher.Name = t.Name;
                 teacher.Email = t.Email;
@@ -277,6 +295,8 @@ namespace WebApplication15.Controllers
         }
         public ActionResult Details(int id)
         {
+            
+            
             return View();
         }
 
@@ -306,7 +326,7 @@ namespace WebApplication15.Controllers
         public ActionResult Edit(int id)
         {
             Teacher t = new Teacher();
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach(tbl_teacher T in db.tbl_teacher)
             {
                 if(T.ID == id)
@@ -324,7 +344,7 @@ namespace WebApplication15.Controllers
         public ActionResult Editst(int id)
         {
             Student st = new Student();
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach (tbl_student ST in db.tbl_student)
             {
                 if (ST.ID == id)
@@ -343,7 +363,7 @@ namespace WebApplication15.Controllers
         public ActionResult Editst(int id, Student t)
         {
 
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
                 db.tbl_student.Find(id).Name = t.Name;
             foreach(User u in db.Users)
             {
@@ -366,7 +386,7 @@ namespace WebApplication15.Controllers
         public ActionResult Edit(int id, Teacher t)
         {
             {
-                LMSEntities db = new LMSEntities();
+                LMSEntities2 db = new LMSEntities2();
                 db.tbl_teacher.Find(id).Name = t.Name;
                 foreach (User u in db.Users)
                 {
@@ -391,7 +411,7 @@ namespace WebApplication15.Controllers
         }
         public ActionResult Deletest(int id)
         {
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach (User u in db.Users)
             {
                 if (db.tbl_student.Find(id).Email == u.Email)
@@ -414,7 +434,7 @@ namespace WebApplication15.Controllers
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach (User u in db.Users)
             {
                 if (db.tbl_teacher.Find(id).Email == u.Email)
@@ -440,7 +460,7 @@ namespace WebApplication15.Controllers
         public ActionResult Editallbooks(int id)
         {
             AllBooks st = new AllBooks();
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach (All_Books ST in db.All_Books)
             {
                 if (ST.ID == id)
@@ -462,7 +482,7 @@ namespace WebApplication15.Controllers
         public ActionResult Editallbooks(int id, AllBooks t)
         {
 
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             db.All_Books.Find(id).Name = t.Name;
             db.All_Books.Find(id).Author = t.Author;
             db.All_Books.Find(id).Number = t.Number;
@@ -494,7 +514,7 @@ namespace WebApplication15.Controllers
 
         public ActionResult DeleteAllBooks(int id)
         {
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach(All_Books a in db.All_Books)
             {
                 if(a.ID == id)

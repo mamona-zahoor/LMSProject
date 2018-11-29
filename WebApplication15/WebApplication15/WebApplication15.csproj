@@ -309,11 +309,11 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Teacher.cshtml" />
     <Content Include="Views\Admin\Editst.cshtml" />
-    <Content Include="Views\Admin\IssuedBooks.cshtml" />
-    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
     <Content Include="Views\Admin\AddAllBooks.cshtml" />
     <Content Include="Views\Admin\Editallbooks.cshtml" />
     <Content Include="Views\Admin\AllBooks.cshtml" />
+    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
+    <Content Include="Views\Admin\IssuedBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

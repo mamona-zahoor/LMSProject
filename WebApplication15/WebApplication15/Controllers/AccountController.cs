@@ -262,81 +262,82 @@ namespace WebApplication15.Controllers
 
         //
         // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
+        /* [HttpPost]
+         [AllowAnonymous]
+         [ValidateAntiForgeryToken]
+         public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+         {
+             if (ModelState.IsValid)
+             {
 
-                bool areEqual = false;
-                string[] E = new string[30];
-                string[] M = new string[30];
-                string resetCode = GenerateRandomPassword(6);
-                LMSEntities db = new LMSEntities();
-                foreach (tbl_student s in db.tbl_student)
-                {
-                    E = s.Email.Split(' ');
-                    M = model.Email.Split(' ');
-                    areEqual = E.SequenceEqual(M);
-                    if (areEqual)
-                    {
-                        int n = s.ID;
-                        db.tbl_student.Find(n).ResetPassword = resetCode;
-                    }
-                }
-                if (!areEqual)
-                {
-                    foreach (tbl_teacher t in db.tbl_teacher)
-                    {
-                        E = t.Email.Split(' ');
-                        M = model.Email.Split(' ');
-                        areEqual = E.SequenceEqual(M);
-                        if (areEqual)
-                        {
-                            int n = t.ID;
-                            db.tbl_teacher.Find(n).ResetPassword = resetCode;
-                        }
-                    }
-                }
-                if (!areEqual)
-                {
-                    foreach (Admin A in db.Admins)
-                    {
-                        E = A.Email.Split(' ');
-                        M = model.Email.Split(' ');
-                        areEqual = E.SequenceEqual(M);
-                        if (areEqual)
-                        {
-                            db.Admins.Find(model.Email).ResetPassword = resetCode;
-                        }
+                 bool areEqual = false;
+                 string[] E = new string[30];
+                 string[] M = new string[30];
+                 string resetCode = GenerateRandomPassword(6);
+                 LMSEntities1 db = new LMSEntities1();
+                 foreach (tbl_student s in db.tbl_student)
+                 {
+                     E = s.Email.Split(' ');
+                     M = model.Email.Split(' ');
+                     areEqual = E.SequenceEqual(M);
+                     if (areEqual)
+                     {
+                         int n = s.ID;
+                         db.tbl_student.Find(n).ResetPassword = resetCode;
+                     }
+                 }
+                 if (!areEqual)
+                 {
+                     foreach (tbl_teacher t in db.tbl_teacher)
+                     {
+                         E = t.Email.Split(' ');
+                         M = model.Email.Split(' ');
+                         areEqual = E.SequenceEqual(M);
+                         if (areEqual)
+                         {
+                             int n = t.ID;
+                             db.tbl_teacher.Find(n).ResetPassword = resetCode;
+                         }
+                     }
+                 }
+                 if (!areEqual)
+                 {
+                     foreach (Admin A in db.Admins)
+                     {
+                         E = A.Email.Split(' ');
+                         M = model.Email.Split(' ');
+                         areEqual = E.SequenceEqual(M);
+                         if (areEqual)
+                         {
+                             db.Admins.Find(model.Email).ResetPassword = resetCode;
+                         }
 
-                    }
-                }
-                db.SaveChanges();
-                if (areEqual)
-                {
-                    SendEMail(model.Email, "Your verification code is " + resetCode + ".", "Verify your library account.");
-                }
-                else
-                {
+                     }
+                 }
+                 db.SaveChanges();
+                 if (areEqual)
+                 {
+                     SendEMail(model.Email, "Your verification code is " + resetCode + ".", "Verify your library account.");
+                 }
+                 else
+                 {
 
-                    ModelState.AddModelError("", "User is not registered in our system!!");
-                    return View(model);
-                }
+                     ModelState.AddModelError("", "User is not registered in our system!!");
+                     return View(model);
+                 }
 
-                return View("ForgotPasswordConfirmation");
-
-
-
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+                 return View("ForgotPasswordConfirmation");
 
 
+
+             }
+
+             // If we got this far, something failed, redisplay form
+             return View(model);
+
+         }
+
+     */
         private void SendEMail(string emailid, string subject, string body)
         {
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
@@ -374,7 +375,7 @@ namespace WebApplication15.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation(string code, string New, string Confirm)
+      /*  public ActionResult ForgotPasswordConfirmation(string code, string New, string Confirm)
         {
             string e = "";
             if (ModelState.IsValid)
@@ -383,7 +384,7 @@ namespace WebApplication15.Controllers
                 {
                     return View();
                 }
-                LMSEntities db = new LMSEntities();
+                LMSEntities1 db = new LMSEntities1();
                 bool areEqual = false, mail = false;
                 foreach (tbl_student s in db.tbl_student)
                 {
@@ -446,11 +447,11 @@ namespace WebApplication15.Controllers
         }
 
 
-
+    */
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
+     //   [AllowAnonymous]
         public ActionResult ResetPassword()
         {
             return View();
@@ -474,7 +475,7 @@ namespace WebApplication15.Controllers
             string[] MP = new string[1];
 
             string resetCode = GenerateRandomPassword(6);
-            LMSEntities db = new LMSEntities();
+            LMSEntities2 db = new LMSEntities2();
             foreach (tbl_student s in db.tbl_student)
             {
                 E = s.Email.Split(' ');
