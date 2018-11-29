@@ -13,10 +13,10 @@ namespace WebApplication15.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LMSEntities2 : DbContext
+    public partial class LMSEntities3 : DbContext
     {
-        public LMSEntities2()
-            : base("name=LMSEntities2")
+        public LMSEntities3()
+            : base("name=LMSEntities3")
         {
         }
     

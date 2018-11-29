@@ -6,6 +6,7 @@
     </Key>
     <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
     <Property Name="Password" Type="nchar" MaxLength="11" Nullable="false" />
+    <Property Name="ResetPassword" Type="nvarchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="All_Books">
     <Key>
@@ -51,6 +52,7 @@
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Registration_Number" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResetPassword" Type="nchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="tbl_teacher">
     <Key>
@@ -60,6 +62,7 @@
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Designation" Type="varchar" MaxLength="50" />
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResetPassword" Type="nchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

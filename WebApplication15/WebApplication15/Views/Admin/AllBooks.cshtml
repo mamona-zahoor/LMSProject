@@ -8,7 +8,7 @@
 {
     <p>
         <h2>Search by:</h2>
-        @Html.RadioButton("searchby", "Number", true)<text>BookNumber</text>
+        @Html.RadioButton("searchby", "Number", true)<text>Book Number</text>
         @Html.RadioButton("searchby", "Name")<text>Name</text><br />
         @Html.TextBox("search")<input type="submit" value="search" />
 
@@ -18,9 +18,9 @@
 }
 
 <p>
-    @Html.ActionLink("Add Book", "AddAllBooks")
+    @Html.ActionLink("ADD BOOK", "AddAllBooks")
 </p>
-<table class="table" style="margin-top: 2cm;" align="center">
+<table class="table" style="margin-top: 2cm;"   align="center">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Number)
@@ -65,7 +65,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Editallbooks", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+     
             @Html.ActionLink("Delete", "DeleteAllBooks", new { id=item.ID })
         </td>
     </tr>

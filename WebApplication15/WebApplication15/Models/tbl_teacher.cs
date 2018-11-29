@@ -18,5 +18,6 @@ namespace WebApplication15.Models
         public string Email { get; set; }
         public string Designation { get; set; }
         public int ID { get; set; }
+        public string ResetPassword { get; set; }
     }
 }

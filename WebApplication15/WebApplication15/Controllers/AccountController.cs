@@ -262,7 +262,7 @@ namespace WebApplication15.Controllers
 
         //
         // POST: /Account/ForgotPassword
-        /* [HttpPost]
+        [HttpPost]
          [AllowAnonymous]
          [ValidateAntiForgeryToken]
          public ActionResult ForgotPassword(ForgotPasswordViewModel model)
@@ -274,7 +274,7 @@ namespace WebApplication15.Controllers
                  string[] E = new string[30];
                  string[] M = new string[30];
                  string resetCode = GenerateRandomPassword(6);
-                 LMSEntities1 db = new LMSEntities1();
+                LMSEntities3 db = new LMSEntities3();
                  foreach (tbl_student s in db.tbl_student)
                  {
                      E = s.Email.Split(' ');
@@ -337,7 +337,7 @@ namespace WebApplication15.Controllers
 
          }
 
-     */
+    
         private void SendEMail(string emailid, string subject, string body)
         {
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
@@ -375,7 +375,7 @@ namespace WebApplication15.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-      /*  public ActionResult ForgotPasswordConfirmation(string code, string New, string Confirm)
+        public ActionResult ForgotPasswordConfirmation(string code, string New, string Confirm)
         {
             string e = "";
             if (ModelState.IsValid)
@@ -384,7 +384,7 @@ namespace WebApplication15.Controllers
                 {
                     return View();
                 }
-                LMSEntities1 db = new LMSEntities1();
+                LMSEntities3 db = new LMSEntities3();
                 bool areEqual = false, mail = false;
                 foreach (tbl_student s in db.tbl_student)
                 {
@@ -447,7 +447,7 @@ namespace WebApplication15.Controllers
         }
 
 
-    */
+    
 
         //
         // GET: /Account/ResetPassword
@@ -475,7 +475,7 @@ namespace WebApplication15.Controllers
             string[] MP = new string[1];
 
             string resetCode = GenerateRandomPassword(6);
-            LMSEntities2 db = new LMSEntities2();
+            LMSEntities3 db = new LMSEntities3();
             foreach (tbl_student s in db.tbl_student)
             {
                 E = s.Email.Split(' ');

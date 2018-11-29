@@ -6,6 +6,7 @@
     </Key>
     <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="All_Books">
     <Key>
@@ -52,6 +53,7 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Registration_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="tbl_teacher">
     <Key>
@@ -61,6 +63,7 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -83,7 +86,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="LMSEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="LMSEntities3" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Admins" EntityType="Self.Admin" />
     <EntitySet Name="All_Books" EntityType="Self.All_Books" />
     <EntitySet Name="Applieds" EntityType="Self.Applied" />

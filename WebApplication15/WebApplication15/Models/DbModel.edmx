@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Email" />
           </Key>
           <Property Name="Email" Type="nchar" MaxLength="27" Nullable="false" />
           <Property Name="Password" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="ResetPassword" Type="nvarchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="All_Books">
           <Key>
@@ -56,6 +57,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Registration_Number" Type="varchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResetPassword" Type="nchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="tbl_teacher">
           <Key>
@@ -65,6 +67,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Designation" Type="varchar" MaxLength="50" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResetPassword" Type="nchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -99,7 +102,8 @@
             <End Role="Issued_Books" EntitySet="Issued_Books" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -109,6 +113,7 @@
           </Key>
           <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="All_Books">
           <Key>
@@ -155,6 +160,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Registration_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_teacher">
           <Key>
@@ -164,6 +170,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -186,7 +193,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LMSEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="LMSEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
           <EntitySet Name="All_Books" EntityType="Self.All_Books" />
           <EntitySet Name="Applieds" EntityType="Self.Applied" />
@@ -204,12 +211,13 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities2">
+        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities3">
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="LMSModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -259,6 +267,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Registration_Number" ColumnName="Registration_Number" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -269,6 +278,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

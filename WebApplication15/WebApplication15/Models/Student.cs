@@ -20,5 +20,6 @@ namespace WebApplication15.Models
         [DisplayFormat(DataFormatString = "2014-CS-001")]
         public string Registration_Number { get; set; }
         public int ID { get; set; }
+        public string ResetPassword { get; set; }
     }
 }
