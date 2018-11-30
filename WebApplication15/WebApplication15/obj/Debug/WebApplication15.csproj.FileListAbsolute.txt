@@ -892,6 +892,6 @@ C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\b
 C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\obj\Debug\WebApplication15.csprojResolveAssemblyReference.cache
 C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\obj\Debug\WebApplication15.dll
 C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\obj\Debug\WebApplication15.pdb
+C:\Users\Mamuna\Desktop\mnhooooos\LMSProject\WebApplication15\WebApplication15\obj\Debug\WebApplication15.csprojResolveAssemblyReference.cache

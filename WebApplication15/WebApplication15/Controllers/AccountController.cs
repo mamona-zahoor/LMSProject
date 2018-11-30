@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,10 +10,7 @@ using WebApplication15.Models;
 using System.Net.Mail;
 using System.Net;
 using System.Data;
-using System.Collections.Generic;
-using System.Web.UI;
 using System.Data.SqlClient;
-using WebApplication15;
 
 namespace WebApplication15.Controllers
 {
@@ -64,7 +59,7 @@ namespace WebApplication15.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-
+            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -430,7 +425,7 @@ namespace WebApplication15.Controllers
                         else
                         {
                             db.Applieds.Find(e).Password = Confirm;
-
+                            db.SaveChanges();
                             return View("Login");
                         }
                     }
@@ -447,11 +442,12 @@ namespace WebApplication15.Controllers
         }
 
 
-    
+
 
         //
         // GET: /Account/ResetPassword
-     //   [AllowAnonymous]
+           [AllowAnonymous]
+        
         public ActionResult ResetPassword()
         {
             return View();
@@ -540,8 +536,9 @@ namespace WebApplication15.Controllers
                 return View(model);
             }
 
-            return View("Login");
+            return View("ResetPasswordConfirmation");
         }
+
 
         //
         // GET: /Account/ResetPasswordConfirmation
