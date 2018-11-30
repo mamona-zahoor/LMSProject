@@ -19,5 +19,6 @@ namespace WebApplication15.Models
         public string Registeration_Num { get; set; }
         public string Designation { get; set; }
         public string Password { get; set; }
+        public string ResetPassword { get; set; }
     }
 }

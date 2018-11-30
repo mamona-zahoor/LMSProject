@@ -729,7 +729,7 @@ namespace WebApplication15.Controllers
         {
 
 
-            return RedirectToAction("Register", "Account");
+            return RedirectToAction("Teacher", "Admin");
 
         }
 
