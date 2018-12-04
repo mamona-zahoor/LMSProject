@@ -25,9 +25,14 @@ namespace WebApplication15.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<All_Books> All_Books { get; set; }
         public virtual DbSet<Applied> Applieds { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Issued_Books> Issued_Books { get; set; }
         public virtual DbSet<tbl_student> tbl_student { get; set; }
         public virtual DbSet<tbl_teacher> tbl_teacher { get; set; }

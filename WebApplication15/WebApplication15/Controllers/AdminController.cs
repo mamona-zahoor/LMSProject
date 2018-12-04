@@ -22,27 +22,35 @@ namespace WebApplication15.Controllers
 
         private void SendEMail(string emailid, string subject, string body)
         {
-            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
+           
+                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                client.EnableSsl = true;
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
 
 
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("cselibmansys@gmail.com", "LibManSys123");
-            client.UseDefaultCredentials = false;
-            client.Credentials = credentials;
+                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("cselibmansys@gmail.com", "LibManSys123");
+                client.UseDefaultCredentials = false;
+                client.Credentials = credentials;
 
-            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
-            msg.From = new MailAddress("cselibmansys@gmail.com");
-            msg.To.Add(new MailAddress(emailid));
+                System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage();
+                msg.From = new MailAddress("cselibmansys@gmail.com");
+                msg.To.Add(new MailAddress(emailid));
 
-            msg.Subject = subject;
-            msg.IsBodyHtml = true;
-            msg.Body = body;
+                msg.Subject = subject;
+                msg.IsBodyHtml = true;
+                msg.Body = body;
 
-            client.Send(msg);
+                client.Send(msg);
+           
+            
         }
+
+
+        
+
+
         public ActionResult AllBooks(string searchby, string search)
         {
             using (LMSEntities3 db = new LMSEntities3())
@@ -150,9 +158,31 @@ namespace WebApplication15.Controllers
 
         public int Fine(DateTime t1, DateTime t2)
         {
-            TimeSpan t = t1.Subtract(t2);
+            /*TimeSpan t = t1.Subtract(t2);
             int  f = (int)t.TotalDays;
             return f * 50;
+            */
+            int fine;
+            if (t1 == null)
+            {
+                if (DateTime.Today >= t2)
+                {
+                    TimeSpan r = t2.Subtract(DateTime.Today);
+                    fine = (int)r.TotalDays;
+                    return fine * 50;
+                }
+                else
+                {
+
+                    return fine = 0;
+                }
+            }
+            else
+            {
+                TimeSpan t = t1.Subtract(t2);
+                fine = (int)t.TotalDays;
+                return fine * 50;
+            }
         }
 
 
@@ -163,7 +193,18 @@ namespace WebApplication15.Controllers
             {
                 LMSEntities3 db = new LMSEntities3();
                 IssuedBooksVM m = new IssuedBooksVM();
-                m.Number = v.Number;
+                foreach(All_Books a in db.All_Books)
+                {
+                    if(a.Number == v.Number)
+                    {
+                        m.Number = v.Number;
+                    }
+                }
+                if(m.Number == "")
+                {
+                    ViewBag.Error = "This Book Number does not Exist in our Libraray";
+                }
+               
                 m.Email = v.Email;
                 foreach (User u in db.Users)
                 {
@@ -187,6 +228,9 @@ namespace WebApplication15.Controllers
                 db.Issued_Books.Add(v);
 
                 db.SaveChanges();
+                string s = "You Just issued a book from CSE Library!!!";
+                string b = "Recently you issued book (" + m.Number + ")   details are given below         " + "Issue Date" + m.Issue_date + " " + "Due Date" + m.Due_date + "    if you will not return book on duedate fine will be charged Rs 50 per day";
+                SendEMail(m.Email, s, b);
 
                 return RedirectToAction("IssuedBooks");
             }
