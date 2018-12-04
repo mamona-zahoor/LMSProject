@@ -158,10 +158,11 @@ namespace WebApplication15.Controllers
 
         public int Fine(DateTime t1, DateTime t2)
         {
-            /*TimeSpan t = t1.Subtract(t2);
+           /* TimeSpan t = t1.Subtract(t2);
             int  f = (int)t.TotalDays;
             return f * 50;
             */
+            
             int fine;
             if (t1 == null)
             {
@@ -589,7 +590,7 @@ namespace WebApplication15.Controllers
             db.Issued_Books.Find(id).Issue_date = t.Issue_date;
             db.Issued_Books.Find(id).Return_date = t.Return_date;
             db.Issued_Books.Find(id).Due_date = t.Due_date;
-            db.Issued_Books.Find(id).Fine = t.Fine;
+            db.Issued_Books.Find(id).Fine = Fine(t.Return_date, t.Due_date); ;
             db.Issued_Books.Find(id).Status = t.Status;
 
             db.SaveChanges();
