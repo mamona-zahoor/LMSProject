@@ -16,8 +16,8 @@ namespace WebApplication15.Models
     {
         public string Number { get; set; }
         public string Email { get; set; }
-        [Required(AllowEmptyStrings =true)]
-        public DateTime Return_date { get; set; }
+        
+        public Nullable <DateTime> Return_date { get; set; }
         public System.DateTime Issue_date { get; set; }
         public System.DateTime Due_date { get; set; }
         public int Fine { get; set; }

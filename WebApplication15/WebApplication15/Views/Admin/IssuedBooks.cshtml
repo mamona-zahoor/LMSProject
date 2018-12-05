@@ -4,7 +4,7 @@
     ViewBag.Title = "IssuedBooks";
 }
 
-@using (Html.BeginForm("Issued Books", "Admin", FormMethod.Get))
+@using (Html.BeginForm("IssuedBooks", "Admin", FormMethod.Get))
 {
     <p>
         <h2>Search by:</h2>
@@ -85,6 +85,7 @@
 
         <td>
             @Html.ActionLink("Edit", "Editissuedbooks", new { id = item.ID }) |
+          
             
             @Html.ActionLink("Delete", "Deleteissuedbooks", new { id = item.ID })
         </td>

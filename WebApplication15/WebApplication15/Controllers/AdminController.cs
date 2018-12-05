@@ -156,19 +156,15 @@ namespace WebApplication15.Controllers
                  */
 
 
-        public int Fine(DateTime t1, DateTime t2)
+        public int Fine( DateTime t2)
         {
-           /* TimeSpan t = t1.Subtract(t2);
-            int  f = (int)t.TotalDays;
-            return f * 50;
-            */
+           
             
             int fine;
-            if (t1 == null)
-            {
-                if (DateTime.Today >= t2)
+           
+                if (DateTime.Today > t2)
                 {
-                    TimeSpan r = t2.Subtract(DateTime.Today);
+                    TimeSpan r = DateTime.Today.Subtract(t2);
                     fine = (int)r.TotalDays;
                     return fine * 50;
                 }
@@ -177,13 +173,7 @@ namespace WebApplication15.Controllers
 
                     return fine = 0;
                 }
-            }
-            else
-            {
-                TimeSpan t = t1.Subtract(t2);
-                fine = (int)t.TotalDays;
-                return fine * 50;
-            }
+         
         }
 
 
@@ -218,9 +208,14 @@ namespace WebApplication15.Controllers
                 m.Issue_date = v.Issue_date;
                 m.Return_date = v.Return_date;
                 m.Due_date = v.Due_date;
-                v.Fine = Fine(v.Return_date, v.Due_date);
+                v.Fine = Fine( v.Due_date);
                 m.Fine = v.Fine;
-                m.Status = v.Status;
+                if (v.Fine == 0)
+                {
+                    v.Status = "Paid";
+                }
+                else
+                { m.Status = v.Status; }
 
 
                 m.UserID = v.UserID;
@@ -340,7 +335,38 @@ namespace WebApplication15.Controllers
         }
         public ActionResult Details(int id)
         {
-            
+            LMSEntities3 db = new LMSEntities3();
+            string i = db.Issued_Books.Find(id).Email;
+            int s;
+            foreach(User u in db.Users)
+            {
+                if(u.Email == i)
+                {
+                    if(u.ID == 1)
+                    {
+                        foreach(tbl_teacher t in db.tbl_teacher)
+                        {
+                            if(t.Email == i)
+                            {
+                                int sr = t.ID;
+                                return View(db.tbl_teacher.Find(sr));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (tbl_student t in db.tbl_student)
+                        {
+                            if (t.Email == i)
+                            {
+                                int sr = t.ID;
+                                return View(db.tbl_teacher.Find(sr));
+                            }
+                        }
+
+                    }
+                }
+            }
             
             return View();
         }
@@ -590,8 +616,13 @@ namespace WebApplication15.Controllers
             db.Issued_Books.Find(id).Issue_date = t.Issue_date;
             db.Issued_Books.Find(id).Return_date = t.Return_date;
             db.Issued_Books.Find(id).Due_date = t.Due_date;
-            db.Issued_Books.Find(id).Fine = Fine(t.Return_date, t.Due_date); ;
-            db.Issued_Books.Find(id).Status = t.Status;
+            db.Issued_Books.Find(id).Fine = Fine( t.Due_date);
+            if (db.Issued_Books.Find(id).Fine == 0)
+            {
+                db.Issued_Books.Find(id).Status = "Paid";
+            }
+            else
+            { db.Issued_Books.Find(id).Status = t.Status; }
 
             db.SaveChanges();
 
