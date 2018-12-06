@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="LibraryManagementSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -16,17 +16,17 @@
     </Key>
     <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="All_Books">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Price" Type="Int32" />
     <Property Name="Edition" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
@@ -35,11 +35,11 @@
       <PropertyRef Name="Email" />
     </Key>
     <Property Name="Username" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="27" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Registeration_Num" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Registeration_Num" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="Designation" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-    <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ResetPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AspNetRole">
     <Key>
@@ -97,16 +97,25 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Return_date" Type="DateTime" Precision="3" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Return_date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Issue_date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Fine" Type="Int32" Nullable="false" />
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Fine" Type="Int32" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Issued_Books_Users" FromRole="Issued_Books" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="tbl_student">
     <Key>
@@ -116,7 +125,7 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Registration_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="tbl_teacher">
     <Key>
@@ -126,15 +135,15 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="ResetPassword" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Issued_Books" Relationship="Self.FK_Issued_Books_Users" FromRole="Users" ToRole="Issued_Books" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -166,7 +175,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Issued_Books_Users">
-    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
     <End Role="Issued_Books" Type="Self.Issued_Books" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
@@ -191,6 +200,7 @@
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
     <EntitySet Name="Issued_Books" EntityType="Self.Issued_Books" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="tbl_student" EntityType="Self.tbl_student" />
     <EntitySet Name="tbl_teacher" EntityType="Self.tbl_teacher" />
     <EntitySet Name="Users" EntityType="Self.User" />

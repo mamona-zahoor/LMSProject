@@ -73,6 +73,7 @@ namespace WebApplication15.Controllers
         {
             string EmailId = "";
             string pwrd = "";
+            LMSEntities3 db = new LMSEntities3();
             DatabaseConnection Db = DatabaseConnection.getInstance();
             string data = "SELECT * from Admin";
             DatabaseConnection.getInstance().getConnection();
@@ -100,22 +101,39 @@ namespace WebApplication15.Controllers
             }
             else
             {
-                switch (result)
+                var SearchEmail = db.Users.Where(x => x.Email == model.Email);
+                var SearchPassword = db.Applieds.Where(x => x.Password == model.Password);
+                if (SearchEmail != null && SearchPassword != null)
                 {
+                    switch (result)
+                    {
 
-                    case SignInStatus.Success:
-                        return RedirectToLocal(returnUrl);
+                        case SignInStatus.Success:
+                            return RedirectToLocal(returnUrl);
 
-                    case SignInStatus.LockedOut:
-                        return View("Lockout");
-                    case SignInStatus.RequiresVerification:
-                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                    case SignInStatus.Failure:
-                    default:
-                        ModelState.AddModelError("", "Invalid login attempt.");
+                        case SignInStatus.LockedOut:
+                            return View("Lockout");
+                        case SignInStatus.RequiresVerification:
+                            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                        case SignInStatus.Failure:
+                        default:
+                            ModelState.AddModelError("", "Invalid login attempt.");
 
-                        return View(model);
+                            return View(model);
+                    }
                 }
+                else
+                {
+                    switch (result)
+                    {
+
+                        case SignInStatus.Failure:
+                        default:
+                            ModelState.AddModelError("", "Invalid login attempt.");
+
+                            return View(model);
+                    }
+                }               
             }
         }
 

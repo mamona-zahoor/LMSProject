@@ -10,7 +10,7 @@ namespace WebApplication15
     class DatabaseConnection
     {
            private static DatabaseConnection instance;
-        public String ConnectionString = "Data Source=MAMONA\\MAMONA;Initial Catalog=LibraryManagementSystem;User ID=sa;Password=Mamona123";
+        public String ConnectionString = "Data Source=(local);Initial Catalog=LibraryManagementSystem;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
         private SqlConnection connection;
 
 

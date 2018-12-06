@@ -19,7 +19,7 @@ namespace WebApplication15.Models
         public DateTime Issue_date { get; set; }
         [Required(ErrorMessage = "Please Enter the date")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-        public Nullable<DateTime> Return_date { get; set; }
+        public DateTime Return_date { get; set; }
         [Required(ErrorMessage = "Please Enter the date")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         public DateTime Due_date { get; set; }

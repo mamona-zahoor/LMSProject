@@ -337,7 +337,6 @@ namespace WebApplication15.Controllers
         {
             LMSEntities3 db = new LMSEntities3();
             string i = db.Issued_Books.Find(id).Email;
-            int s;
             foreach(User u in db.Users)
             {
                 if(u.Email == i)

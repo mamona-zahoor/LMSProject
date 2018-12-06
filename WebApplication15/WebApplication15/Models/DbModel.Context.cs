@@ -34,6 +34,7 @@ namespace WebApplication15.Models
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Issued_Books> Issued_Books { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tbl_student> tbl_student { get; set; }
         public virtual DbSet<tbl_teacher> tbl_teacher { get; set; }
         public virtual DbSet<User> Users { get; set; }

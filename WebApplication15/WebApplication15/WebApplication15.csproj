@@ -226,6 +226,9 @@
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbl_student.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -330,6 +333,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
