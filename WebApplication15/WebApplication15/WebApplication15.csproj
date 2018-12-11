@@ -284,7 +284,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -332,6 +334,10 @@
     <Content Include="Views\Admin\AddIssuedbook.cshtml" />
     <Content Include="Views\Admin\Detailteacher.cshtml" />
     <Content Include="Views\Admin\Detailst.cshtml" />
+    <Content Include="Views\Admin\DeleteAllBooks.cshtml" />
+    <Content Include="Views\Admin\DeleteIssuedBooks.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\Deletest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

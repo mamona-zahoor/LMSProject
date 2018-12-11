@@ -648,47 +648,59 @@ namespace WebApplication15.Controllers
         }
         public ActionResult Deletest(int id)
         {
+            ViewBag.Title = "Delete Student";
             LMSEntities3 db = new LMSEntities3();
-            foreach (User u in db.Users)
-            {
-                if (db.tbl_student.Find(id).Email == u.Email)
-                {
-                    db.Users.Remove(u);
-                }
-            }
-            foreach (tbl_student t1 in db.tbl_student)
-            {
-                if (t1.ID == id)
-                {
-                    db.tbl_student.Remove(t1);
-
-                }
-            }
-            db.SaveChanges();
-            return RedirectToAction("Student");
+            tbl_student b = db.tbl_student.Find(id);
+            return View(b);
         }
 
-        // GET: Admin/Delete/5
+        [HttpPost]
+        public ActionResult Deletest(int id, Student obj)
+        {
+            try
+            {
+                ViewBag.Title = "Delete Student";
+                LMSEntities3 db = new LMSEntities3();
+                var ToDelete = db.tbl_student.Single(x => x.ID == id);
+                //var ToDelete1 = db.Users.Single(x => x.ID == id);
+                db.tbl_student.Remove(ToDelete);
+               // db.Users.Remove(ToDelete1);
+                db.SaveChanges();
+                return RedirectToAction("Student");
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
         public ActionResult Delete(int id)
         {
+            ViewBag.Title = "Delete Teacher";
             LMSEntities3 db = new LMSEntities3();
-            foreach (User u in db.Users)
+            tbl_teacher b = db.tbl_teacher.Find(id);
+            return View(b);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, Teacher obj)
+        {
+            try
             {
-                if (db.tbl_teacher.Find(id).Email == u.Email)
-                {
-                    db.Users.Remove(u);
-                }
+                ViewBag.Title = "Delete Teacher";
+                LMSEntities3 db = new LMSEntities3();
+                var ToDelete = db.tbl_teacher.Single(x => x.ID == id);
+                //var ToDelete1 = db.Users.Single(x => x.ID == id);
+                db.tbl_teacher.Remove(ToDelete);
+               // db.Users.Remove(ToDelete1);
+
+                db.SaveChanges();
+                return RedirectToAction("Teacher");
             }
-            foreach (tbl_teacher t1 in db.tbl_teacher)
+            catch (Exception)
             {
-                if (t1.ID == id)
-                {
-                    db.tbl_teacher.Remove(t1);
-                   
-                }
+                return View();
             }
-            db.SaveChanges();
-            return RedirectToAction("Teacher");
         }
 
 
@@ -738,16 +750,28 @@ namespace WebApplication15.Controllers
 
         public ActionResult DeleteAllBooks(int id)
         {
+            ViewBag.Title = "Delete Book";
             LMSEntities3 db = new LMSEntities3();
-            foreach(All_Books a in db.All_Books)
+            All_Books b = db.All_Books.Find(id);
+            return View(b);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAllBooks(int id, AllBooks obj)
+        {
+            try
             {
-                if(a.ID == id)
-                {
-                    db.All_Books.Remove(a);
-                }
+                ViewBag.Title = "Delete Book";
+                LMSEntities3 db = new LMSEntities3();
+                var ToDelete = db.All_Books.Single(x => x.ID == id);
+                db.All_Books.Remove(ToDelete);
+                db.SaveChanges();
+                return RedirectToAction("AllBooks");
             }
-            db.SaveChanges();
-            return RedirectToAction("AllBooks");
+            catch (Exception)
+            {
+                return View();
+            }
         }
 
         public ActionResult Editissuedbooks(int id)
@@ -798,30 +822,28 @@ namespace WebApplication15.Controllers
 
 
 
+        // Admin/Delete/Issued Books
         public ActionResult DeleteIssuedBooks(int id)
         {
+            ViewBag.Title = "Delete Book";
             LMSEntities3 db = new LMSEntities3();
-            foreach (Issued_Books a in db.Issued_Books)
-            {
-                if (a.ID == id)
-                {
-                    db.Issued_Books.Remove(a);
-                }
-            }
-            db.SaveChanges();
-            return RedirectToAction("IssuedBooks");
+            Issued_Books b = db.Issued_Books.Find(id);
+            return View(b);
         }
 
-        // POST: Admin/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, Teacher t)
+        public ActionResult DeleteIssuedBooks(int id, IssuedBooksVM obj)
         {
             try
             {
-                return View();
-               
+                ViewBag.Title = "Delete Book";
+                LMSEntities3 db = new LMSEntities3();
+                var ToDelete = db.Issued_Books.Single(x => x.ID == id);
+                db.Issued_Books.Remove(ToDelete);
+                db.SaveChanges();
+                return RedirectToAction("IssuedBooks");
             }
-            catch
+            catch (Exception)
             {
                 return View();
             }
