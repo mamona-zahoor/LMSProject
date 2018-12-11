@@ -14,13 +14,13 @@ namespace WebApplication15.Models
     
     public partial class All_Books
     {
-        public string Number { get; set; }
         public string Name { get; set; }
+        public string Number { get; set; }
+
         public string Author { get; set; }
-        public Nullable<int> Edition { get; set; }
-        public Nullable<int> Price { get; set; }
+        public int Price { get; set; }
+        public int Edition { get; set; }
         public string Status { get; set; }
         public int ID { get; set; }
-        public string BookImage { get; set; }
     }
 }

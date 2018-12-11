@@ -239,6 +239,7 @@ namespace WebApplication15.Controllers
                         return RedirectToAction("Register", "Account");
                     }
                 }
+                
                 AddErrors(result);
             }
 

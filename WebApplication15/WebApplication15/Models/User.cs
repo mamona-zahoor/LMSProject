@@ -21,8 +21,8 @@ namespace WebApplication15.Models
         }
     
         public string Email { get; set; }
-        public int ID { get; set; }
         public int UserID { get; set; }
+        public Nullable<int> ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Issued_Books> Issued_Books { get; set; }

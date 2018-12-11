@@ -1,9 +1,76 @@
-﻿@model WebApplication15.Models.Issued_Books
+﻿@model WebApplication15.Models.IssuedBooksVM
 
 @{
-    ViewBag.Title = "Issue Book";
+    ViewBag.Title = "AddIssuedbook";
 }
+
 <style>
+    body {
+        font-family: Calisto MT;
+        margin: 0;
+    }
+
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+
+
+    input {
+        border: none;
+        box-sizing: border-box;
+        border-bottom: 1px solid #ebebeb;
+        background: transparent;
+        color: black;
+        font-weight: unset;
+        font-family: 'Poppins';
+        font-size: 20px;
+    }
+
+    .signup-content {
+        width: 600px;
+        margin-right: 700px;
+        margin-top: 50px;
+        background: rgba(170, 153, 67, 0.75);
+        color: #fff;
+        float: right;
+    }
+
+    .submit {
+        width: 130px;
+        border-radius: 25px;
+        -moz-border-radius: 25px;
+        -webkit-border-radius: 25px;
+        text-transform: uppercase;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .submit-link {
+        border: 2px solid #fff;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 12px 0;
+        text-align: center;
+    }
+
+        .submit-link:hover {
+            background: #fff;
+            color: #b18757;
+        }
+
     .submit {
         width: 130px;
         border-radius: 25px;
@@ -32,70 +99,63 @@
             color: #000;
         }
 </style>
-@using (Html.BeginForm())
+
+
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+        @Html.ValidationSummary( "", new { @class = "text-danger" })
         <div class="form-group">
+            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <br />
-                &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;
-                @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
-                &emsp; &emsp;&emsp; &emsp;&emsp;&nbsp;&nbsp;
                 @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })<br>
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
+
+      
+
         <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                &emsp; &emsp;&emsp; &emsp;&emsp;&nbsp;&nbsp;&emsp;
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-        <br />
+
         <div class="form-group">
+            @Html.LabelFor(model => model.Issue_date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;
-                @Html.LabelFor(model => model.Issue_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                &emsp; &emsp;&emsp;&nbsp;&emsp; &nbsp;&nbsp;
                 @Html.EditorFor(model => model.Issue_date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Issue_date, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <br />
-        
        
 
-        <br />
         <div class="form-group">
+            @Html.LabelFor(model => model.Due_date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;
-                @Html.LabelFor(model => model.Due_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                &emsp; &emsp;&emsp;&emsp; &emsp;
                 @Html.EditorFor(model => model.Due_date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Due_date, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <br />
        
 
-        <br />
+       
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;
-                <input type="submit" value="Add Book" class="submit-link submit"  />
+                <input type="submit" value="Add" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+
 <div>
     @Html.ActionLink("Back to List", "IssuedBooks")
 </div>
-<br /><br /><br /><br /><br />

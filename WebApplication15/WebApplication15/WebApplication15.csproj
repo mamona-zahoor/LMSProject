@@ -188,6 +188,21 @@
     <Compile Include="Models\Applied.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,11 +241,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\404.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\index.html" />
-    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -304,25 +316,25 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\AddTeacher.cshtml" />
     <Content Include="Views\Admin\Student.cshtml" />
-    <Content Include="Views\Admin\AddStudent.cshtml" />
     <Content Include="Views\Admin\Teacher.cshtml" />
     <Content Include="Views\Admin\Editst.cshtml" />
-    <Content Include="Views\Admin\AddAllBooks.cshtml" />
     <Content Include="Views\Admin\Editallbooks.cshtml" />
     <Content Include="Views\Admin\AllBooks.cshtml" />
-    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
     <Content Include="Views\Admin\IssuedBooks.cshtml" />
     <Content Include="Views\Admin\Editissuedbooks.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\AddStudent.cshtml" />
+    <Content Include="Views\Admin\AddTeacher.cshtml" />
+    <Content Include="Views\Admin\AddAllBooks.cshtml" />
+    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
+    <Content Include="Views\Admin\Detailteacher.cshtml" />
+    <Content Include="Views\Admin\Detailst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\assets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

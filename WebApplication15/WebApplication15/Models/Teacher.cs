@@ -16,8 +16,9 @@ namespace WebApplication15.Models
         [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
         public string Email { get; set; }
         [Required(ErrorMessage = "Please Enter your Designation")]
-        [StringLength(20,MinimumLength =10)]
-       
+       // [StringLength(20,MinimumLength =10)]
+      //  [RegularExpression(@"^(([A-Za-z]))$", ErrorMessage = "Enter a valid Designation")]
+
         public string Designation { get; set; }
         public int ID { get; set; }
         public string ResetPassword { get; set; }

@@ -1,0 +1,50 @@
+﻿@model WebApplication15.Models.tbl_student
+
+@{
+    ViewBag.Title = "Detailst";
+}
+
+<h2>Detailst</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registration_Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registration_Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResetPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResetPassword)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

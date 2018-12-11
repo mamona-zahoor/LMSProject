@@ -8,17 +8,21 @@ namespace WebApplication15.Models
 {
     public class Student
     {
-        [Required(ErrorMessage = "Please Enter your name")]
+        [Required]
+        [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-Za-z]+))$",ErrorMessage ="Enter a valid Name")]
         public string Name { get; set; }
-
+        [EmailAddress(ErrorMessage = "Please Enter your Email Address")]
         [Required(ErrorMessage = "Please Enter your Email Address")]
-        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
+        
         public string Email { get; set; }
 
+       
         [Display(Name = "Registration Number")]
-        [StringLength(11, ErrorMessage = "Registration Number is not valid", MinimumLength = 9)]
-        [DisplayFormat(DataFormatString = "2014-CS-001")]
+        // [StringLength(11, ErrorMessage = "Enter a Valid Registration Number", MinimumLength = 9)]
+        [RegularExpression(@"^[0-9]{4}[-][a-zA-Z]{2,3}[-][0-9]{2,3}$", ErrorMessage = "Please Enter a valid formatt for Registration Number")]
+
         public string Registration_Number { get; set; }
+       
         public int ID { get; set; }
         public string ResetPassword { get; set; }
     }
