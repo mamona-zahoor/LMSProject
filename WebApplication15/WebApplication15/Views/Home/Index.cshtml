@@ -1,31 +1,655 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@{ 
+    Layout = null;
+}
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@{
+    ViewBag.Title = "Home Page";
+}
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>App Landy : Home</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href=@Url.Content("Content/assets/images/favicon.ico") />
+    <!-- Font Awesome -->
+    <link href=@Url.Content("Content/assets/css/font-awesome.css") rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href=@Url.Content("Content/assets/css/bootstrap.css") rel="stylesheet">
+    <!-- Slick slider -->
+    <link rel="stylesheet" type="text/css" href=@Url.Content("Content/assets/css/slick.css") />
+    <!-- Fancybox slider -->
+    <link rel="stylesheet" href=@Url.Content("Content/assets/css/jquery.fancybox.css") type="text/css" media="screen" />
+    <!-- Animate css -->
+    <link rel="stylesheet" type="text/css" href=@Url.Content("Content/assets/css/animate.css") />
+    <!-- Theme color -->
+    <link id="switcher" href=@Url.Content("Content/assets/css/theme-color/default-theme.css") rel="stylesheet">
+
+    <!-- Main Style -->
+    <link href=@Url.Content("Content/style.css") rel="stylesheet">
+
+    <!-- Fonts -->
+    <!-- Open Sans for body font -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- Cabin for Title -->
+    <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+    <!-- Pacifico for Logo   -->
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <!-- BEGAIN PRELOADER -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    <!-- END PRELOADER -->
+    <body id="page-top" class="index">
+
+        <!-- Navigation -->
+        <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top">LMS</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="http://localhost:28235/Account/Register">Sign Up</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="http://localhost:28235/Account/Login">Sign In</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#contact">Suggestions</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <!-- Start menu area -->
+        <div class="nav-area">
+            <a id="menu-btn" href="#"><i class="fa fa-bars"></i></a>
+            <nav class="main-nav" id="main-menu">
+                <span class="fa fa-remove" id="close"></span>
+                <ul>
+                    <li> <a href="#header"><i class="fa fa-home"></i><span>Home</span></a></li>
+                    <li><a href="#features"><i class="fa fa-server"></i><span>Features</span></a></li>
+
+                    <li><a href="#pricing-table"><i class="fa fa-usd"></i><span>Books in Library</span></a></li>
+                    <li><a href="#screenshot"><i class="fa fa-image"></i><span>Books</span></a></li>
+                    <li><a href="#testimonial"><i class="fa fa-certificate"></i><span>Group Members</span></a></li>
+                    <li><a href="#contact"><i class="fa fa-envelope-o"></i><span>Contact</span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- End menu area -->
+        <!-- Start header section -->
+        <header id="header">
+            <div class="header-inner">
+                <!-- Header image -->
+                <img src=@Url.Content("Content/assets/images/o.jpg") alt="img">
+                <div class="overlay">
+                    <div class="header-content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="header-top">
+                                        <!-- Start logo area -->
+                                        <div class="header-bottom-left">
+                                            <h1>Library Management System</h1>
+                                            <p>Library Management System is a software used to manages the catalog of a library</p>
+                                        </div>
+                                        <!-- Text based logo -->
+                                        <!-- <a class="logo" href="index.html">App Landy.</a> -->
+                                    </div>
+                                    <!-- End logo area -->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="header-bottom">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="header-bottom-right">
+                                                <!-- <img src="assets/images/iphone-group1.png" alt="iphone grpup img"> -->
+                                                <img src=@Url.Content("Content/assets/images/library.png") alt="iphone grpup img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </header>
+        <!-- End header section -->
+        <!-- Start Features -->
+        <section id="features">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-area">
+                            <h2 class="title">Awesome <span>Features</span></h2>
+                            <p>There are many Features in our Library Management System from both admin and user side. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="features-area">
+                            <div class="row">
+                                <!-- Start features left -->
+                                <div class="col-md-4">
+                                    <div class="features-left">
+                                        <ul class="features-list features-list-left">
+                                            <li class="wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                                                <i class="fa fa-desktop"></i>
+                                                <div class="features-content">
+                                                    <h4>Website</h4>
+                                                    <p>It is a web application.</p>
+                                                </div>
+                                            </li>
+                                            <li class="wow fadeInLeft" data-wow-duration="0.75s" data-wow-delay="0.75s">
+                                                <i class="fa fa-edit"></i>
+                                                <div class="features-content">
+                                                    <h4>Recently Added</h4>
+                                                    <p>User can see books recently added by admin</p>
+                                                </div>
+                                            </li>
+                                            <li class="wow fadeInRight" data-wow-duration="1s" data-wow-delay="1s">
+                                                <i class="fa fa-archive"></i>
+                                                <div class="features-content">
+                                                    <h4>User Friendly</h4>
+                                                    <p>It is user friendly </p>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- End features left -->
+                                <!-- Start features img -->
+                                <div class="col-md-4">
+                                    <div class="feature-img wow fadeInUp">
+                                        <img src=@Url.Content("Content/assets/images/new.png") alt="iPhone mockup">
+                                    </div>
+                                </div>
+                                <!-- End features img -->
+                                <!-- Start features right -->
+                                <div class="col-md-4">
+                                    <div class="features-right">
+                                        <ul class="features-list features-list-right">
+                                            <li class="wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                                                <i class="fa fa-edit"></i>
+                                                <div class="features-content">
+                                                    <h4>Edit Books</h4>
+                                                    <p>You can edit books in the library management system.</p>
+                                                </div>
+                                            </li>
+                                            <li class="wow fadeInRight" data-wow-duration="0.75s" data-wow-delay="0.75s">
+                                                <i class="fa fa-object-ungroup"></i>
+                                                <div class="features-content">
+                                                    <h4>News </h4>
+                                                    <p>News related to books will be shown on main page in news section.</p>
+                                                </div>
+                                            </li>
+                                            <li class="wow fadeInRight" data-wow-duration="1s" data-wow-delay="1s">
+                                                <i class="fa fa-heart"></i>
+                                                <div class="features-content">
+                                                    <h4>You May Like</h4>
+                                                    <p>You can like books in the library or can see liked books in library</p>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- End features right -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Features -->
+        <!-- Start how it works --
+        <section id="howit-works">
+            <div class="howit-works-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-area wow fadeInLeft">
+                                <h2 class="title">How it <span>Works</span></h2>
+                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="howit-works-video">
+                                <iframe src="https://player.vimeo.com/video/33790882" width="428" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <!-- End how it works -->
+        <!-- start pricing table -->
+        <section id="pricing-table">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-area wow fadeInLeft">
+                            <h2 class="title">Books In<span>Library</span></h2>
+                            <p>Here is the List of books available in the library</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pricing-table-content">
+                            <div class="row">
+                                <!-- Start single plan --
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="single-plan wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                                        <div class="single-plan-head">
+                                            <h5>Startup</h5>
+                                            <p>$20/<span>month</span></p>
+                                        </div>
+                                        <div class="single-plan-content">
+                                            <ul>
+                                                <li>5GB Space</li>
+                                                <li>10GB Bandwidth</li>
+                                                <li class="delete">15 Email Account</li>
+                                                <li class="delete">Integration with WordPress</li>
+                                                <li class="delete">Unlimited Support</li>
+                                            </ul>
+                                        </div>
+                                        <div class="single-plan-bottom">
+                                            <a class="signup-btn" href="http://mixdesigns.net">Sign Up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End single plan -->
+                                <!-- Start single plan --
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="single-plan wow fadeInUp" data-wow-duration="0.75s" data-wow-delay="0.75s">
+                                        <div class="single-plan-head">
+                                            <h5>Pro</h5>
+                                            <p>$35/<span>month</span></p>
+                                        </div>
+                                        <div class="single-plan-content">
+                                            <ul>
+                                                <li>5GB Space</li>
+                                                <li>10GB Bandwidth</li>
+                                                <li>15 Email Account</li>
+                                                <li class="delete">Integration with WordPress</li>
+                                                <li class="delete">Unlimited Support</li>
+                                            </ul>
+                                        </div>
+                                        <div class="single-plan-bottom">
+                                            <a class="signup-btn" href="#">Sign Up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End single plan -->
+                                <!-- Start single plan --
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="single-plan feature-price wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
+                                        <div class="single-plan-head">
+                                            <h5>Business</h5>
+                                            <p>$50/<span>month</span></p>
+                                        </div>
+                                        <div class="single-plan-content">
+                                            <ul>
+                                                <li>5GB Space</li>
+                                                <li>10GB Bandwidth</li>
+                                                <li>15 Email Account</li>
+                                                <li>Integration with WordPress</li>
+                                                <li class="delete">Unlimited Support</li>
+                                            </ul>
+                                        </div>
+                                        <div class="single-plan-bottom">
+                                            <a class="signup-btn" href="#">Sign Up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End single plan -->
+                                <!-- Start single plan --
+                                                        <div class="col-md-3 col-sm-6">
+                                                            <div class="single-plan wow fadeInUp" data-wow-duration="1.25s" data-wow-delay="1.25s">
+                                                                <div class="single-plan-head">
+                                                                    <h5>Advanced</h5>
+                                                                    <p>$75/<span>month</span></p>
+                                                                </div>
+                                                                <div class="single-plan-content">
+                                                                    <ul>
+                                                                        <li>5GB Space</li>
+                                                                        <li>10GB Bandwidth</li>
+                                                                        <li>15 Email Account</li>
+                                                                        <li>Integration with WordPress</li>
+                                                                        <li>Unlimited Support</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="single-plan-bottom">
+                                                                    <a class="signup-btn" href="#">Sign Up</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End single plan --
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End pricing table -->
+                                <!-- Start screenshot -->
+                                <section id="screenshot">
+                                    <div class="container">
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+                                                <div class="title-area wow fadeInUp">
+                                                    <h2 class="title"><span>BOOKS</span></h2>
+                                                    <p></p>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="screenshots-area">
+                                                    <ul class="screenshots-slide">
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/e-popup.jpeg")>
+                                                                <img src=@Url.Content("Content/assets/images/e.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/3-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/3.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/5-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/5.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/d-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/d.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/p-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/p.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/b-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/b.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/c-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/c.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class="col-md-3 wow fadeInLeft">
+                                                            <a class="fancybox" data-fancybox-group="gallery" href=@Url.Content("Content/assets/images/d-popup.jpg")>
+                                                                <img src=@Url.Content("Content/assets/images/d.jpg") alt="app screenshot">
+                                                                <div class="view-btn-area">
+                                                                    <span class="fa fa-search view-btn"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End screenshot -->
+                                <!-- Start download app
+                                <section id="download-app">
+                                    <div class="download-overlay">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="title-area wow fadeInUp">
+                                                        <h2 class="title">Download <span>App</span></h2>
+                                                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour</p>
+                                                    </div>
+                                                </div>
+                                                <!-- Start download app content
+                                                <div class="col-md-12">
+                                                    <div class="download-app-content">
+                                                        <!-- Start single download
+                                                        <a class="single-download wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s" href="#">
+                                                            <div class="download-icon">
+                                                                <i class="fa fa-windows"></i>
+                                                            </div>
+                                                            <div class="download-content">
+                                                                <p>Available on the</p>
+                                                                <span>Windows Store</span>
+                                                            </div>
+                                                        </a>
+                                                        <!-- Start single download
+                                                        <a class="single-download wow fadeInLeft" data-wow-duration="0.75s" data-wow-delay="0.75s" href="#">
+                                                            <div class="download-icon">
+                                                                <i class="fa fa-play"></i>
+                                                            </div>
+                                                            <div class="download-content">
+                                                                <p>Available on the</p>
+                                                                <span>Play Store</span>
+                                                            </div>
+                                                        </a>
+                                                        <!-- Start single download --
+                                                        <a class="single-download wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s" href="#">
+                                                            <div class="download-icon">
+                                                                <i class="fa fa-apple"></i>
+                                                            </div>
+                                                            <div class="download-content">
+                                                                <p>Available on the</p>
+                                                                <span>Apple Store</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End download app -->
+                                <!-- Start testimonial -->
+                                <section id="testimonial">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="title-area wow fadeInLeft">
+                                                    <h2 class="title">Group <span>Members</span></h2>
+                                                    <p>List of group memebers working for this project as per on their tasks.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="testimonial-slider">
+                                                    <!-- single slide -->
+                                                    <div class="testimonial-single-slide">
+                                                        <img class="testi-avatar" src=@Url.Content("Content/assets/images/mamona.jpg") alt="testimonial img">
+                                                        <p class="testi-name">Mamoona Zahoor</p>
+                                                        <p class="testi-company">2016-CS-353</p>
+                                                        <p class="testi-text">Group Member</p>
+                                                    </div>
+                                                    <!-- single slide -->
+                                                    <div class="testimonial-single-slide">
+                                                        <img class="testi-avatar" src=@Url.Content("Content/assets/images/sid.jpg") alt="testimonial img">
+                                                        <p class="testi-name">Sidra Mushtaq</p>
+                                                        <p class="testi-company">2016-CS-354</p>
+                                                        <p class="testi-text">Group Member</p>
+                                                    </div>
+                                                    <!-- single slide -->
+                                                    <div class="testimonial-single-slide">
+                                                        <img class="testi-avatar" src=@Url.Content("Content/assets/images/zoha.jpg") alt="testimonial img">
+                                                        <p class="testi-name">Zuhha Azhar</p>
+                                                        <p class="testi-company">2016-CS-361</p>
+                                                        <p class="testi-text">Group Member</p>
+                                                    </div>
+                                                    <!-- single slide -->
+                                                    <div class="testimonial-single-slide">
+                                                        <img class="testi-avatar" src=@Url.Content("Content/assets/images/farva.jpg") alt="testimonial img">
+                                                        <p class="testi-name">Farva Sardar</p>
+                                                        <p class="testi-company">2016-CS-375</p>
+                                                        <p class="testi-text">Group Member</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End testimonial -->
+                                <!-- Start subscribe -->
+                                <section id="subscribe">
+                                    <div class="download-overlay">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="title-area wow fadeInUp">
+                                                        <h2 class="title">Send Your <span>Email</span></h2>
+                                                        <p>Send your Email for adding in our Library Management System</p>
+                                                    </div>
+                                                </div>
+                                                <!-- Start download app content -->
+                                                <div class="col-md-12">
+                                                    <div class="subscribe-content wow fadeInLeft">
+                                                        <form action="" class="subcr-form">
+                                                            <i class="fa fa-envelope-o"></i>
+                                                            <input type="text" name="" id="" placeholder="Type your mail address..">
+                                                            <button type="submit" class="subcr-btn">Send</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End download app -->
+                                <!-- Start contact -->
+                                <section id="contact">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="title-area">
+                                                    <h2 class="title">Send Your <span>Suggestions</span></h2>
+                                                    <p>Send your suggestions about this Application by filling this form</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="contact-area">
+                                                    <form action="" class="contact-form">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" placeholder="Your name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" rows="3" placeholder="Your Message"></textarea>
+                                                        </div>
+                                                        <div class="send-area">
+                                                            <button type="submit" class="send-btn">Send Now</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <!-- End contact -->
+                                <!-- Start footer -->
+                                <footer id="footer">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!--end--
+                                                <div class="footer-social">
+                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                </div>
+                                                    <!--end-->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </footer>
+                                <!-- End -->
+                                <!-- jQuery library -->
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                                <!-- Bootstrap -->
+                                <script src=@Url.Content("Content/assets/js/bootstrap.js")></script>
+                                <!-- Slick Slider -->
+                                <script type="text/javascript" src=@Url.Content("Content/assets/js/slick.js")></script>
+                                <!-- Add fancyBox -->
+                                <script type="text/javascript" src=@Url.Content("Content/assets/js/jquery.fancybox.pack.js")></script>
+                                <!-- Wow animation -->
+                                <script type="text/javascript" src=@Url.Content("Content/assets/js/wow.js")></script>
+                                <!-- Off-canvas Menu -->
+                                <script src=@Url.Content("Content/assets/js/classie.js")></script>
+
+                                <!-- Custom js -->
+                                <script type="text/javascript" src=@Url.Content("Content/assets/js/custom.js")></script>
+
+    </body>
+</html>
