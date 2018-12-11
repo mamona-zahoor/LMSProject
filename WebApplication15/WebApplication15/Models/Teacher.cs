@@ -9,15 +9,16 @@ namespace WebApplication15.Models
     public class Teacher
     {
         [Required(ErrorMessage ="Please Enter your name")]
+        [RegularExpression(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Enter a valid Name")]
         public string Name { get; set; }
 
 
+        [EmailAddress(ErrorMessage = "Please Enter your Email Address")]
         [Required(ErrorMessage = "Please Enter your Email Address")]
-        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
         public string Email { get; set; }
         [Required(ErrorMessage = "Please Enter your Designation")]
-       // [StringLength(20,MinimumLength =10)]
-      //  [RegularExpression(@"^(([A-Za-z]))$", ErrorMessage = "Enter a valid Designation")]
+       
+       [RegularExpression(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Enter a valid Designation")]
 
         public string Designation { get; set; }
         public int ID { get; set; }

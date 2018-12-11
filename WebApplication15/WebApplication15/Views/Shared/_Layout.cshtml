@@ -215,9 +215,10 @@ function carousel() {
                 </button>
 
                 <div class="dropdown-content">
-                    <a href="http://localhost:28235">Logout</a>
-                    <a href="http://localhost:28235/Admin/Teacher">Myaccount</a>
-                    <a href="http://localhost:28235/Account/ResetPassword">Reset Password</a>
+                   @Html.ActionLink("Logout", "Login", "Account")
+                    @Html.ActionLink("My Account", "AllBooks", "Admin")
+                    @Html.ActionLink("Reset Password", "ForgotPassword", "Account")
+                    
                 </div>
             </div>
         </div>

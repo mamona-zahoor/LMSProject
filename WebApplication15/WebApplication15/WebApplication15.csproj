@@ -332,10 +332,6 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\AddStudent.cshtml" />
-    <Content Include="Views\Admin\AddTeacher.cshtml" />
-    <Content Include="Views\Admin\AddAllBooks.cshtml" />
-    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
     <Content Include="Views\Admin\Detailteacher.cshtml" />
     <Content Include="Views\Admin\Detailst.cshtml" />
     <Content Include="Views\Admin\DeleteAllBooks.cshtml" />
@@ -343,6 +339,10 @@
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Deletest.cshtml" />
     <Content Include="Views\Account\LoggedInView.cshtml" />
+    <Content Include="Views\Admin\AddAllBooks.cshtml" />
+    <Content Include="Views\Admin\AddIssuedbook.cshtml" />
+    <Content Include="Views\Admin\AddStudent.cshtml" />
+    <Content Include="Views\Admin\AddTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

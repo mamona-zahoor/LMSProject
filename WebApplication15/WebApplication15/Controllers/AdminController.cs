@@ -77,28 +77,77 @@ namespace WebApplication15.Controllers
         {
             try
             {
-                using (LMSEntities3 db = new LMSEntities3())
+                All_Books bk = new All_Books();
+
+                
+                if (ModelState.IsValid)
                 {
-                    All_Books bk = new All_Books();
-                    bk.Name = b.Name;
-                    bk.Number = b.Number;
-                    bk.Price = b.Price;
-                    bk.Author = b.Author;
-                    bk.Edition = b.Edition;
-                    bk.Status = b.Status;
-                    bk.ImagePath = b.ImagePath;
-                    db.All_Books.Add(bk);
-                    db.SaveChanges();
 
+
+                    using (LMSEntities3 db = new LMSEntities3())
+                    {
+
+                        
+                        bk.Name = b.Name;
+                        foreach(All_Books h in db.All_Books)
+                        {
+                            if(h.Number == b.Number)
+                            {
+                                ModelState.AddModelError("", "This Book is already added in library");
+                            }
+                           
+
+                        }
+                        bk.Number = b.Number;
+                        if (b.Price < 0 || b.Price ==0)
+                        {
+                            ModelState.AddModelError("", "Price should be greater than 0");
+                        }
+                        bk.Price = b.Price;
+                        bk.Author = b.Author;
+                        if (b.Edition <= 0)
+                        {
+                            ModelState.AddModelError("", "Enter valid Edition");
+                        }
+
+                        bk.Edition = b.Edition;
+                       
+
+                        bk.Status = "Available";
+                        b.Status = bk.Status;
+                        bk.ImagePath = b.ImagePath;
+
+                        db.All_Books.Add(bk);
+                        db.SaveChanges();
+
+                    }
+
+
+                    return RedirectToAction("AddAllBooks");
                 }
-              
-
-                return RedirectToAction("AllBooks");
+                return ViewBag.Message = "p";
             }
             catch
             {
                 return View();
             }
+        }
+
+
+
+        public string GiveNumber(string n)
+        {
+            LMSEntities3 db = new LMSEntities3();
+            string r = "";
+            foreach (Issued_Books a in db.Issued_Books)
+            {
+                if (a.Number == n)
+                {
+                    r = a.Email;
+                }
+
+            }
+            return r;
         }
 
 
@@ -269,116 +318,109 @@ namespace WebApplication15.Controllers
 
 
 
+        public bool Number(string n)
+        {
+            LMSEntities3 y = new LMSEntities3();
+            foreach (All_Books a in y.All_Books)
+            {
+                if (a.Number == n)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         [HttpPost]
-        public ActionResult AddIssuedbook(Issued_Books v)
+        public ActionResult AddIssuedbook(IssuedBooksVM v)
         {
             try
             {
-                /* LMSEntities3 db = new LMSEntities3();
-                
-                if (CheckNumber(v.Number) == true )
+                if (ModelState.IsValid)
                 {
-                    m.Number = v.Number;
-                    if(CheckEmail(v.Email) == true)
+
+
+                    LMSEntities3 db = new LMSEntities3();
+                    Issued_Books m = new Issued_Books();
+
+
+                    if (Number(v.Number) == false)
                     {
-                        m.Email = v.Email;
-                        if (checkuid(m.Email, v.ID) == true)
-                        {
-                            
-                                v.Fine = Fine(v.Due_date);
-                                m.Fine = v.Fine;
-                                if (v.Fine == 0)
-                                {
-                                    v.Status = "Paid";
-                                    m.UserID = v.UserID;
+                        ModelState.AddModelError("", "Book of this Number does not Exist in our library");
 
-
-                                    db.Issued_Books.Add(v);
-
-                                    db.SaveChanges();
-                                    string s = "You Just issued a book from CSE Library!!!";
-                                    string b = "Recently you issued book (" + m.Number + ")   details are given below         " + "Issue Date" + m.Issue_date + " " + "Due Date" + m.Due_date + "    if you will not return book on duedate fine will be charged Rs 50 per day";
-                                    SendEMail(m.Email, s, b);
-
-                                    return RedirectToAction("IssuedBooks");
-                                }
-                            }
-                        
                     }
-                  
-                    
+                    else
+                    {
+                        foreach (Issued_Books n in db.Issued_Books)
+                        {
+                            if (n.Number == v.Number)
+                            {
+                                ModelState.AddModelError("", "We are Sorry !!! This book is already issued to " + GiveNumber(v.Number));
+                            }
+                        }
+
+
+                        foreach (User u in db.Users)
+                        {
+                            if (u.Email == v.Email)
+                            {
+                                v.UserID = u.UserID;
+                            }
+                        }
+                        if (v.UserID == 0)
+                        {
+                            ModelState.AddModelError("", "This Email is not a part of our library");
+                        }
+                        else
+                        {
+                            m.Email = v.Email;
+                        }
+                        foreach (All_Books mo in db.All_Books)
+                        {
+                            if (mo.Number == v.Number)
+                            {
+                                mo.Status = "Issued";
+                            }
+                        }
+                        m.Number = v.Number;
+                        m.Issue_date = v.Issue_date;
+                        m.Return_date = v.Return_date;
+                        m.Due_date = v.Due_date;
+                        v.Fine = Fine(v.Due_date);
+                        m.Fine = v.Fine;
+                        if (v.Fine == 0)
+                        {
+                            v.Status = "Paid";
+                        }
+                        else
+                        { m.Status = v.Status; }
+
+
+                        m.UserID = v.UserID;
+
+
+                        db.Issued_Books.Add(m);
+
+                        db.SaveChanges();
+                        string s = "You Just issued a book from CSE Library!!!";
+                        string b = "Recently you issued book (" + m.Number + ")   details are given below         " + "Issue Date" + m.Issue_date + " " + "Due Date" + m.Due_date + "    if you will not return book on duedate fine will be charged Rs 50 per day";
+                        SendEMail(m.Email, s, b);
+
+                        return RedirectToAction("IssuedBooks");
+                    }
                 }
+                return ViewBag.Message("P");
 
-
-                ViewBag.Error = "Errors";
-                return View();
-
-
-
-
-
-
-
-                */ LMSEntities3 db = new LMSEntities3();
-                IssuedBooksVM m = new IssuedBooksVM();
-
-                foreach (All_Books a in db.All_Books)
-                  {
-                      if(a.Number == v.Number)
-                      {
-                          m.Number = v.Number;
-                          break;
-                      }
-                  }
-                  if(m.Number == "")
-                  {
-                      ViewBag.Message = "This Book Number does not Exist in our Libraray";
-                      return View();
-                  }
-
-                  m.Email = v.Email;
-                  foreach (User u in db.Users)
-                  {
-                      if (u.Email == v.Email)
-                      {
-                          v.UserID = u.UserID;
-                      }
-                  }
-
-                  m.Issue_date = v.Issue_date;
-                  m.Return_date = v.Return_date;
-                  m.Due_date = v.Due_date;
-                  v.Fine = Fine( v.Due_date);
-                  m.Fine = v.Fine;
-                  if (v.Fine == 0)
-                  {
-                      v.Status = "Paid";
-                  }
-                  else
-                  { m.Status = v.Status; }
-
-
-                  m.UserID = v.UserID;
-
-
-                  db.Issued_Books.Add(v);
-
-                  db.SaveChanges();
-                  string s = "You Just issued a book from CSE Library!!!";
-                  string b = "Recently you issued book (" + m.Number + ")   details are given below         " + "Issue Date" + m.Issue_date + " " + "Due Date" + m.Due_date + "    if you will not return book on duedate fine will be charged Rs 50 per day";
-                  SendEMail(m.Email, s, b);
-
-                  return RedirectToAction("IssuedBooks");
-                  
             }
             catch
             {
 
                 ViewBag.Error = "Errors";
                 return View();
-               
+
             }
-            
+
         }
         [HttpPost]
         public ActionResult AddStudent(Student s, User e)
@@ -388,21 +430,37 @@ namespace WebApplication15.Controllers
                 if (ModelState.IsValid)
                 {
 
-
+                    LMSEntities3 db = new LMSEntities3();
                     tbl_student st = new tbl_student();
-
+                    foreach (tbl_student su in db.tbl_student)
+                    {
+                        if (su.Email == s.Email)
+                        {
+                            ModelState.AddModelError("", "This EmailID is already Registerd");
+                        }
+                        if (su.Registration_Number == s.Registration_Number)
+                        {
+                            ModelState.AddModelError("", "This Registration Number Already Exists");
+                        }
+                    }
                     st.Email = s.Email;
                     e.Email = s.Email;
                     e.ID = 2;
                     st.Name = s.Name;
+
                     st.Registration_Number = s.Registration_Number;
-                    LMSEntities3 db = new LMSEntities3();
+
                     db.tbl_student.Add(st);
                     db.Users.Add(e);
                     db.SaveChanges();
+                    ViewBag.Message = "Student has been added";
                     SendEMail(s.Email, "CSE Library Membership", "Your request for library membership has been accepted.");
 
-                    return RedirectToAction("Student");
+                    return RedirectToAction("AddStudent");
+
+
+
+
                 }
                 return ViewBag.Message = "O";
             }
@@ -435,80 +493,66 @@ namespace WebApplication15.Controllers
         }
         // GET: Admin/Details/5
 
-      /*  public void addemail()
-        {
-            LibraryManagementSystemEntities db = new LibraryManagementSystemEntities();
-            List<tbl_teacher> teachers = db.tbl_teacher.ToList();
+        /*  public void addemail()
+          {
+              LibraryManagementSystemEntities db = new LibraryManagementSystemEntities();
+              List<tbl_teacher> teachers = db.tbl_teacher.ToList();
 
-            List<Email> lst = teachers.Select(x => new Email { Email1 = x.Email }).ToList();
-            int count = lst.Count();
+              List<Email> lst = teachers.Select(x => new Email { Email1 = x.Email }).ToList();
+              int count = lst.Count();
 
-            int i = 1;
-            while (i < count)
-            {
-                db.Emails.Add(lst[i]);
-                ++i;
-                db.SaveChanges();
+              int i = 1;
+              while (i < count)
+              {
+                  db.Emails.Add(lst[i]);
+                  ++i;
+                  db.SaveChanges();
 
-            }
-        }
-        */
+              }
+          }
+          */
         [HttpPost]
         public ActionResult AddTeacher(Teacher t, User e)
         {
             try
             {
-                LMSEntities3 DB = new LMSEntities3();
-                tbl_teacher teacher = new tbl_teacher();
-                teacher.Name = t.Name;
-                teacher.Email = t.Email;
-               e.Email = t.Email;
-                e.ID = 1;
-                teacher.Designation = t.Designation;
+                if (ModelState.IsValid)
+                {
+                    LMSEntities3 DB = new LMSEntities3();
+                    tbl_teacher teacher = new tbl_teacher();
+                    teacher.Name = t.Name;
+                    foreach (tbl_teacher tu in DB.tbl_teacher)
+                    {
+                        if (tu.Email == t.Email)
+                        {
+                            ModelState.AddModelError("", "This Email is already registerd");
+                        }
+                    }
+                    teacher.Email = t.Email;
+                    e.Email = t.Email;
+                    e.ID = 1;
+                    teacher.Designation = t.Designation;
 
-               
-                DB.tbl_teacher.Add(teacher);
-               DB.Users.Add(e);
-                
-                DB.SaveChanges();
 
-                SendEMail(t.Email, "CSE Library Membership", "Your request for library membership has been accepted.");
+                    DB.tbl_teacher.Add(teacher);
+                    DB.Users.Add(e);
+
+                    DB.SaveChanges();
+
+                    SendEMail(t.Email, "CSE Library Membership", "Your request for library membership has been accepted.");
 
 
 
-                return RedirectToAction("Teacher");
+                    return RedirectToAction("Teacher");
+                }
+                return ViewBag.Message = "O";
             }
             catch
             {
                 return View();
             }
-           
+
         }
-        public ActionResult Details(int id)
-        {
-            LMSEntities3 db = new LMSEntities3();
-            string i = db.Issued_Books.Find(id).Email;
-
-            foreach (User u in db.Users)
-            {
-                if (u.Email == i)
-                {
-                    if (u.ID == 1)
-                    {
-                        return RedirectToAction("Detailteacher", new { email = u.Email });
-                        //Detailteacher(u.Email);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Detailst", new { email = u.Email });
-                        // Detailst(u.Email);
-                    }
-                }
-            }
-
-            return View();
-        }
-
         public ActionResult Detailteacher(string email)
         {
             LMSEntities3 db = new LMSEntities3();
@@ -535,6 +579,33 @@ namespace WebApplication15.Controllers
             }
             return View();
 
+        }
+        public ActionResult Details(int id)
+        {
+            LMSEntities3 db = new LMSEntities3();
+            string i = db.Issued_Books.Find(id).Email;
+
+            foreach (User u in db.Users)
+            {
+                if (u.Email == i)
+                {
+                    if (u.ID == 1)
+                    {
+                        //return RedirectToAction("Detailteacher", new { email = u.Email });
+                        Detailteacher(u.Email);
+                        break;
+                    }
+                    else
+                    {
+                        //return RedirectToAction("Detailst", new { email = u.Email });
+
+                        Detailst(u.Email);
+                        break;
+                    }
+                }
+            }
+
+            return View();
         }
 
         // GET: Admin/Create
@@ -738,7 +809,7 @@ namespace WebApplication15.Controllers
             db.All_Books.Find(id).Number = t.Number;
             db.All_Books.Find(id).Price = t.Price;
             db.All_Books.Find(id).Edition = t.Edition;
-            db.All_Books.Find(id).Status = t.Status;
+            
             db.All_Books.Find(id).ImagePath = t.ImagePath;
 
 
@@ -815,6 +886,18 @@ namespace WebApplication15.Controllers
             }
             else
             { db.Issued_Books.Find(id).Status = t.Status; }
+            if (db.Issued_Books.Find(id).Fine != 0 && db.Issued_Books.Find(id).Status == "Paid")
+            {
+                foreach(All_Books n in db.All_Books)
+                {
+                    if(n.Number == db.Issued_Books.Find(id).Number)
+                    {
+                        n.Status = "Available";
+                    }
+                }
+            }
+
+
 
             db.SaveChanges();
 

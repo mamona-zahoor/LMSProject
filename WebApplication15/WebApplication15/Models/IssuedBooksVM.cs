@@ -18,7 +18,7 @@ namespace WebApplication15.Models
         [Required(ErrorMessage = "Please Enter the date")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         public DateTime Issue_date { get; set; }
-        [Required(ErrorMessage = "Please Enter the date")]
+        
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         public Nullable<System.DateTime> Return_date { get; set; }
         [Required(ErrorMessage = "Please Enter the date")]

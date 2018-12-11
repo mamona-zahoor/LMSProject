@@ -9,7 +9,7 @@ namespace WebApplication15.Models
     public class Student
     {
         [Required]
-        [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-Za-z]+))$",ErrorMessage ="Enter a valid Name")]
+         [RegularExpression(@"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage ="Enter a valid Name")]
         public string Name { get; set; }
         [EmailAddress(ErrorMessage = "Please Enter your Email Address")]
         [Required(ErrorMessage = "Please Enter your Email Address")]
