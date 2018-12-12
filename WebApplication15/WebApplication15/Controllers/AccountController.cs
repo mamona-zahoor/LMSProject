@@ -64,6 +64,11 @@ namespace WebApplication15.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult LoggedInView()
+        {
+            return View();
+        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -105,22 +110,10 @@ namespace WebApplication15.Controllers
                 var SearchPassword = db.Applieds.Where(x => x.Password == model.Password);
                 if (SearchEmail != null && SearchPassword != null)
                 {
-                    switch (result)
-                    {
+                   
 
-                        case SignInStatus.Success:
-                            return RedirectToLocal(returnUrl);
-
-                        case SignInStatus.LockedOut:
-                            return View("Lockout");
-                        case SignInStatus.RequiresVerification:
-                            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                        case SignInStatus.Failure:
-                        default:
-                            ModelState.AddModelError("", "Invalid login attempt.");
-
-                            return View(model);
-                    }
+                       return View("LoggedinView");
+                    
                 }
                 else
                 {
@@ -439,13 +432,13 @@ namespace WebApplication15.Controllers
                         {
                             db.Admins.Find(e).Password = Confirm;
                             db.SaveChanges();
-                            return View("Login");
+                            return View("ResetPasswordConfirmation");
                         }
                         else
                         {
                             db.Applieds.Find(e).Password = Confirm;
                             db.SaveChanges();
-                            return View("Login");
+                            return View("ResetPasswordConfirmation");
                         }
                     }
 

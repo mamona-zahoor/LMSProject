@@ -250,6 +250,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\G.jpeg" />
     <Content Include="Images\m.jpg" />
     <Content Include="Images\ml.jpg" />
     <Content Include="Images\o.jpg" />
@@ -341,10 +342,10 @@
     <Content Include="Views\Admin\DeleteIssuedBooks.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Deletest.cshtml" />
+    <Content Include="Views\Account\LoggedInView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\assets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

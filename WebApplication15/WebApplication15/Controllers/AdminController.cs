@@ -86,7 +86,7 @@ namespace WebApplication15.Controllers
                     bk.Author = b.Author;
                     bk.Edition = b.Edition;
                     bk.Status = b.Status;
-
+                    bk.ImagePath = b.ImagePath;
                     db.All_Books.Add(bk);
                     db.SaveChanges();
 
@@ -720,6 +720,7 @@ namespace WebApplication15.Controllers
                     st.Number = ST.Number;
                     st.Edition = ST.Edition;
                     st.Status = ST.Status;
+                    st.ImagePath = ST.ImagePath;
                     break;
 
                 }
@@ -738,6 +739,7 @@ namespace WebApplication15.Controllers
             db.All_Books.Find(id).Price = t.Price;
             db.All_Books.Find(id).Edition = t.Edition;
             db.All_Books.Find(id).Status = t.Status;
+            db.All_Books.Find(id).ImagePath = t.ImagePath;
 
 
             db.SaveChanges();

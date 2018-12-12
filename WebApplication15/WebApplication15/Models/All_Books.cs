@@ -21,5 +21,6 @@ namespace WebApplication15.Models
         public int Edition { get; set; }
         public string Status { get; set; }
         public int ID { get; set; }
+        public string ImagePath { get; set; }
     }
 }

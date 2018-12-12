@@ -18,8 +18,8 @@ namespace WebApplication15.Models
         public int Edition { get; set; }
         [Required(ErrorMessage = "Please Enter author name")]
         public string Author { get; set; }
-       
-       
+        [Required(ErrorMessage = "Please Enter image path for book.")]
+        public string ImagePath { get; set; }
         [Required(ErrorMessage = "Please Select a status")]
         public string Status { get; set; }
         public int ID { get; set; }
