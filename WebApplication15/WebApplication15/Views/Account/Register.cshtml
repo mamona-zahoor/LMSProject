@@ -59,10 +59,10 @@
 
     .signup-content {
         width: 600px;
-        margin-right: 700px;
+        margin-right: 400px;
         margin-top: 50px;
-        background: rgba(170, 153, 67, 0.75);
-        color: #fff;
+         background: rgba(170, 153, 67, 0.75);
+         color: #fff;
         float: right;
     }
 
@@ -109,26 +109,30 @@
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
             &emsp;&emsp;@Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            &emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp; @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
             <div class="col-md-10">
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             &emsp;&emsp;@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            &emsp;&emsp;  &emsp;&emsp;&emsp;&emsp; &emsp; @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             <div class="col-md-10">
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+              
             </div>
         </div>
         <div class="form-group">
             &emsp;&emsp;@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;  @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             <div class="col-md-10">
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                
             </div>
         </div>
         <div class="form-group">
             &emsp;&emsp;    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            &emsp;&emsp;  @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             <div class="col-md-10">
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &emsp; @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                
             </div>
         </div>
         <script language="javascript" type="text/javascript">
@@ -169,22 +173,24 @@
 
         <div class="form-group">
             &emsp; &emsp;@Html.LabelFor(m => m.Registration_Num, new { id = "Stu1", @class = "col-md-2 control-label", style = "display: none;" })
+            &emsp;&emsp;&emsp;@Html.TextBoxFor(m => m.Registration_Num, new { id = "Stu2", @class = "form-control", style = "display: none;" }) <br />
             <div class="col-md-10">
-                &emsp; &emsp;&emsp; &emsp; &emsp;&emsp;&emsp;@Html.TextBoxFor(m => m.Registration_Num, new { id = "Stu2", @class = "form-control", style = "display: none;" }) <br />
+                &emsp; &emsp;&emsp; &emsp; 
             </div>
         </div>
         <div class="form-group">
 
             &emsp; &emsp;&emsp;@Html.LabelFor(m => m.Designation, new { id = "t1", @class = "col-md-2 control-label", style = "display: none;" })
-            <div class="col-md-10">
-                &emsp; &emsp;     &emsp; &emsp;&emsp;&emsp;&emsp;
-                @Html.TextBoxFor(m => m.Designation, new { id = "t2", @class = "form-control", style = "display: none;" })
+            &emsp;&emsp;&emsp;
+            @Html.TextBoxFor(m => m.Designation, new { id = "t2", @class = "form-control", style = "display: none;" })
+             <div class="col-md-10">
+                &emsp; &emsp;     &emsp; &emsp;
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
                 &emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp; &emsp; &emsp;&emsp; &emsp;&emsp;
-                <input type="submit" class="submit-link submit"  onclick="return alert('Your request for library membership has been sent!!')" value="Send Request" />
+                <input type="submit" class="submit-link submit"  onclick="return alert('Your request for library membership is being sent..')" value="Send Request" />
 
 
             </div>

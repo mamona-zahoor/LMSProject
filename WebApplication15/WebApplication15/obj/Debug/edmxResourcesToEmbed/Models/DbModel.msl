@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities3">
+  <EntityContainerMapping StorageEntityContainer="LibraryManagementSystemModelStoreContainer" CdmEntityContainer="LMSEntities3">
     <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="LMSModel.C__MigrationHistory">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
           <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Admins">
-      <EntityTypeMapping TypeName="LMSModel.Admin">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.Admin">
         <MappingFragment StoreEntitySet="Admin">
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -21,7 +21,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="All_Books">
-      <EntityTypeMapping TypeName="LMSModel.All_Books">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.All_Books">
         <MappingFragment StoreEntitySet="All_Books">
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Number" ColumnName="Number" />
@@ -35,7 +35,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Applieds">
-      <EntityTypeMapping TypeName="LMSModel.Applied">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.Applied">
         <MappingFragment StoreEntitySet="Applied">
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -47,7 +47,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="LMSModel.AspNetRole">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -55,7 +55,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="LMSModel.AspNetUserClaim">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -65,7 +65,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="LMSModel.AspNetUserLogin">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -74,7 +74,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="LMSModel.AspNetUser">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Registration_Num" ColumnName="Registration_Num" />
@@ -95,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Issued_Books">
-      <EntityTypeMapping TypeName="LMSModel.Issued_Books">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.Issued_Books">
         <MappingFragment StoreEntitySet="Issued_Books">
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -110,7 +110,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbl_student">
-      <EntityTypeMapping TypeName="LMSModel.tbl_student">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.tbl_student">
         <MappingFragment StoreEntitySet="tbl_student">
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -121,7 +121,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbl_teacher">
-      <EntityTypeMapping TypeName="LMSModel.tbl_teacher">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.tbl_teacher">
         <MappingFragment StoreEntitySet="tbl_teacher">
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -132,7 +132,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="LMSModel.User">
+      <EntityTypeMapping TypeName="LibraryManagementSystemModel.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -140,7 +140,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="LMSModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="LibraryManagementSystemModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
