@@ -733,9 +733,21 @@ namespace WebApplication15.Controllers
                 ViewBag.Title = "Delete Student";
                 LMSEntities3 db = new LMSEntities3();
                 var ToDelete = db.tbl_student.Single(x => x.ID == id);
+
+                AspNetUser A = new AspNetUser();
+                foreach (AspNetUser B in db.AspNetUsers)
+                {
+                    if (B.Email == ToDelete.Email)
+                    {
+                        A = B;
+                    }
+                }
+                var app = db.Applieds.Single(x => x.Email == ToDelete.Email);
                 //var ToDelete1 = db.Users.Single(x => x.ID == id);
                 db.tbl_student.Remove(ToDelete);
-               // db.Users.Remove(ToDelete1);
+                db.AspNetUsers.Remove(A);
+                db.Applieds.Remove(app);
+                // db.Users.Remove(ToDelete1);
                 db.SaveChanges();
                 return RedirectToAction("Student");
             }
@@ -762,8 +774,20 @@ namespace WebApplication15.Controllers
                 LMSEntities3 db = new LMSEntities3();
                 var ToDelete = db.tbl_teacher.Single(x => x.ID == id);
                 //var ToDelete1 = db.Users.Single(x => x.ID == id);
+                AspNetUser A = new AspNetUser();
+                foreach (AspNetUser B in db.AspNetUsers)
+                {
+                    if (B.Email == ToDelete.Email)
+                    {
+                        A = B;
+                    }
+                }
+                var app = db.Applieds.Single(x => x.Email == ToDelete.Email);
+                //var ToDelete1 = db.Users.Single(x => x.ID == id);
                 db.tbl_teacher.Remove(ToDelete);
-               // db.Users.Remove(ToDelete1);
+                db.AspNetUsers.Remove(A);
+                db.Applieds.Remove(app);
+                // db.Users.Remove(ToDelete1);
 
                 db.SaveChanges();
                 return RedirectToAction("Teacher");
