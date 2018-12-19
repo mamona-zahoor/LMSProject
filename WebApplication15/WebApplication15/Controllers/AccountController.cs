@@ -53,6 +53,24 @@ namespace WebApplication15.Controllers
                 _userManager = value;
             }
         }
+        [AllowAnonymous]
+        //[HttpPost]
+        public ActionResult Books(string searchby, string search)
+        {
+            using (LMSEntities3 db = new LMSEntities3())
+            {
+                if (searchby == "Name")
+                {
+                    return View(db.All_Books.Where(x => x.Name.Contains(search) || search == null).ToList());
+                }
+                else
+                {
+                    return View(db.All_Books.Where(x => x.Number.Contains(search) || search == null).ToList());
+                }
+            }
+        }
+
+
 
         //
         // GET: /Account/Login

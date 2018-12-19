@@ -1,0 +1,245 @@
+﻿@model IEnumerable<WebApplication15.Models.All_Books>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 70%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Times New Roman';
+    }
+
+    .container {
+        position: relative;
+        font-family: 'Times New Roman';
+    }
+
+    /* Style the header */
+    .header {
+        background-color: #f1f1f1;
+        padding: 20px;
+        text-align: right;
+    }
+
+    .container {
+        position: relative;
+    }
+
+    /* Bottom right text */
+    .text-block {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+        color: yellow;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    /* Style the top navigation bar */
+
+
+
+
+
+
+
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: grey;
+        }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
+
+
+
+
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @@media screen and (max-width: 600px) {
+        .column.side, .column.middle {
+            width: 100%;
+        }
+    }
+
+    /* Style the footer */
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        padding: 2px;
+        text-align: center;
+        font-family: 'Times New Roman';
+    }
+
+    .text-block {
+        position: absolute;
+        bottom: 3px;
+        right: 20px;
+        color: yellow;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-family: 'Times New Roman';
+    }
+</style>
+
+
+
+
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Books</title>
+</head>
+
+    <body style="margin-left:10px;margin-right:10px">
+        <div>
+            <div class="container">
+                <img class="mySlides w3-animate-fading" src="~/Images/pp.jpg" height="350" width="1630">
+                
+                <div class="text-block">
+                    <h1 style="font-family:algerian;"><b><b><font size="36" font-family="Algerian">LIBRARY MANAGEMENT SYSTEM</font></b></b></h1>
+
+                </div>
+            </div>
+            </div>
+        @using (Html.BeginForm("Books", "Account", FormMethod.Get))
+        {
+            <p>
+                <h2>Search by:</h2>
+                @Html.RadioButton("searchby", "Number", true)<text>Book Number</text>
+                @Html.RadioButton("searchby", "Name")<text>Name</text><br />
+                @Html.TextBox("search")<input type="submit" value="search" />
+
+            </p>
+
+
+        }
+
+            <table class="table" style="margin-top: 2cm;" align="center">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Number)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Edition)
+                    </th>
+
+
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Edition)
+                        </td>
+
+
+                    </tr>
+                }
+
+            </table>
+    </body>
+</html>
